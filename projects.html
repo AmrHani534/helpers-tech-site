@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Helpers Technologies — All Projects</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    /* reuse index.html color + tiny helpers */
+    body {
+      background-color: #020617;
+      color: #f8fafc;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+
+    :root {
+      --brand-bg: #020617;
+      --card: #0f172a;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+    }
+
+    a {
+      color: inherit
+    }
+
+    /* Basic responsive image utility for the static page */
+    .project-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block
+    }
+  </style>
+</head>
+
+<body class="bg-[color:var(--brand-bg)] text-slate-50">
+  <!-- Header / Navbar -->
+  <header class="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
+    <nav
+      class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 bg-slate-900/90 backdrop-blur-md py-4 shadow-lg border-b border-slate-800">
+      <div class="container mx-auto px-6 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-2 group">
+          <img src="/assets/logo.png" alt="Helpers Tech Logo"
+            class="w-10 h-10 object-contain group-hover:scale-105 transition-transform" />
+          <span class="text-xl font-bold tracking-tight text-white">Helpers<span
+              class="text-blue-400">Tech</span></span>
+        </a>
+
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="index.html"
+            class="text-sm font-medium text-slate-300 hover:text-white hover:text-blue-400 transition-colors">Home</a>
+          <a href="projects.html"
+            class="text-sm font-medium text-white hover:text-blue-400 transition-colors">Projects</a>
+          <a href="contact.html"
+            class="text-sm font-medium text-slate-300 hover:text-white hover:text-blue-400 transition-colors">Contact</a>
+          <a href="contact.html#quote"
+            class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-full transition-all shadow-lg shadow-blue-600/20">Get
+            Quote</a>
+        </div>
+
+        <button class="md:hidden text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" x2="20" y1="12" y2="12" />
+            <line x1="4" x2="20" y1="6" y2="6" />
+            <line x1="4" x2="20" y1="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="pt-28 pb-20">
+    <!-- Hero -->
+    <section class="pt-10 pb-12 bg-gradient-to-br from-blue-900/5 via-transparent to-purple-900/5">
+      <div class="container mx-auto px-6 max-w-4xl text-center">
+        <h1
+          class="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          All Projects</h1>
+        <p class="text-slate-400 text-lg md:text-xl">Browse a selection of our recent work.</p>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="container mx-auto px-6 mt-10 max-w-6xl">
+      <div class="flex flex-wrap gap-3 items-center justify-center md:justify-start mb-6">
+        <button class="filter-btn px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+          data-filter="all">All</button>
+        <button class="filter-btn px-4 py-2 rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700"
+          data-filter="web">Websites</button>
+        <button class="filter-btn px-4 py-2 rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700"
+          data-filter="ecommerce">E‑Commerce</button>
+        <button class="filter-btn px-4 py-2 rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700"
+          data-filter="mobile">Mobile Apps</button>
+      </div>
+
+      <!-- Projects Grid -->
+      <div id="projects" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Card 1 - DRIVEN X -->
+        <article class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden" data-category="ecommerce">
+          <img class="project-img" src="/assets/driven-x.jpg" alt="DRIVEN X – Auto Parts Store" />
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-2">
+              <span
+                class="text-xs font-bold uppercase tracking-wider text-blue-400 bg-blue-900/20 px-2 py-1 rounded">E-Commerce</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">DRIVEN X – Auto Parts Store</h3>
+            <p class="text-slate-400 text-sm mb-4">A specialized e-commerce platform for high-performance auto parts and
+              accessories.</p>
+            <a href="#contact"
+              class="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300">Start a
+              similar project →</a>
+          </div>
+        </article>
+
+        <!-- Card 2 - Premium Hub Store -->
+        <article class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden" data-category="ecommerce">
+          <img class="project-img" src="/assets/premium-hub.jpg" alt="Premium Hub Store" />
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-2">
+              <span
+                class="text-xs font-bold uppercase tracking-wider text-green-400 bg-green-900/10 px-2 py-1 rounded">E‑Commerce</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Premium Hub Store</h3>
+            <p class="text-slate-400 text-sm mb-4">A premium digital store for entertainment subscriptions with a bold
+              visual identity.</p>
+            <a href="#contact"
+              class="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300">Start a
+              similar project →</a>
+          </div>
+        </article>
+
+        <!-- Card 3 - Flixs Store -->
+        <article class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden" data-category="ecommerce">
+          <img class="project-img" src="/assets/flixs-store.jpg" alt="Flixs Store" />
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-2">
+              <span
+                class="text-xs font-bold uppercase tracking-wider text-green-400 bg-green-900/10 px-2 py-1 rounded">E‑Commerce</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Flixs Store</h3>
+            <p class="text-slate-400 text-sm mb-4">A custom-built WordPress theme for digital entertainment
+              subscriptions.</p>
+            <a href="#contact"
+              class="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300">Start a
+              similar project →</a>
+          </div>
+        </article>
+
+        <!-- Card 4 - Belal Store -->
+        <article class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden" data-category="ecommerce">
+          <img class="project-img" src="/assets/belal-store.png" alt="Belal Store" />
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-2">
+              <span
+                class="text-xs font-bold uppercase tracking-wider text-green-400 bg-green-900/10 px-2 py-1 rounded">E‑Commerce</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Belal Store</h3>
+            <p class="text-slate-400 text-sm mb-4">A digital marketplace for entertainment and software subscriptions.
+            </p>
+            <a href="#contact"
+              class="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300">Start a
+              similar project →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // filtering logic
+    const buttons = document.querySelectorAll('.filter-btn');
+    const cards = Array.from(document.querySelectorAll('[data-category]'));
+
+    function filterProjects(category) {
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        if (category === 'all' || cat === category) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // active styles
+        buttons.forEach(b => b.classList.remove('bg-blue-600', 'text-white'));
+        btn.classList.add('bg-blue-600', 'text-white');
+        const filter = btn.getAttribute('data-filter');
+        filterProjects(filter);
+      });
+    });
+  </script>
+</body>
+
+</html>
