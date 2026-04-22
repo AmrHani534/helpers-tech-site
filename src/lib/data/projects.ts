@@ -13,12 +13,18 @@ export type Project = {
   summary: string;
   summary_ar?: string;
   challenge: string;
+  challenge_ar?: string;
   solution: string;
+  solution_ar?: string;
   results: string[];
+  results_ar?: string[];
   testimonial?: {
     quote: string;
+    quote_ar?: string;
     author: string;
+    author_ar?: string;
     role: string;
+    role_ar?: string;
   };
   techStack: string[];
   coverImage: string;
@@ -43,19 +49,33 @@ export const projects: Project[] = [
       "قالب ووردبريس مخصّص لمتجر اشتراكات رقمية مميز، بهوية بصرية جريئة وتسليم آلي للطلبات.",
     challenge:
       "The client needed a flexible, easy-to-manage platform to sell various digital subscriptions with a unique, dark-themed design and automated delivery, while still letting their non-technical team manage products themselves.",
+    challenge_ar:
+      "احتاج العميل إلى منصة مرنة سهلة الإدارة لبيع اشتراكات رقمية متنوعة، بهوية بصرية داكنة مميزة وتسليم آلي للطلبات، مع تمكين فريقه غير التقني من إدارة المنتجات بنفسه.",
     solution:
       "We developed a custom WordPress theme tailored to their brand, tightly integrated with WooCommerce for product management and local payment gateways, plus automated delivery of digital keys on successful checkout.",
+    solution_ar:
+      "طوّرنا قالب ووردبريس مخصصًا يعكس هوية العلامة، متكاملًا بإحكام مع WooCommerce لإدارة المنتجات وبوابات الدفع المحلية، مع تسليم آلي لأكواد الاشتراكات فور إتمام الشراء.",
     results: [
       "Fully automated digital delivery",
       "Integrated local payment gateways",
       "Easy product management for non-technical team",
       "Mobile-first responsive design",
     ],
+    results_ar: [
+      "تسليم رقمي آلي بالكامل",
+      "بوابات دفع محلية مدمجة",
+      "إدارة منتجات سهلة لفريق غير تقني",
+      "تصميم متجاوب يبدأ من الجوال",
+    ],
     testimonial: {
       quote:
         "The custom theme is exactly what we imagined. Managing products is so easy now, and the platform has completely automated our sales process.",
+      quote_ar:
+        "القالب المخصص جاء مطابقًا لما تخيّلناه تمامًا. إدارة المنتجات صارت سهلة جدًا، والمنصة أتمتت عملية البيع بالكامل.",
       author: "Premium Hub Team",
+      author_ar: "فريق متجر بريميوم هَب",
       role: "Management",
+      role_ar: "فريق الإدارة",
     },
     techStack: ["WordPress", "WooCommerce", "PHP", "Tailwind CSS", "JavaScript"],
     coverImage: "/images/premium-hub.jpg",
@@ -77,19 +97,33 @@ export const projects: Project[] = [
       "سوق رقمي لاشتراكات الترفيه والبرمجيات بقالب ووردبريس مخصّص وتسليم آلي.",
     challenge:
       "The client needed a platform to sell digital subscriptions with automated delivery and secure payment processing — plus a distinctive brand identity.",
+    challenge_ar:
+      "احتاج العميل إلى منصة لبيع الاشتراكات الرقمية مع تسليم آلي ومعالجة دفع آمنة — إضافة إلى هوية بصرية مميزة.",
     solution:
       "We built a custom e-commerce solution with automated order fulfillment, integrated local payment gateways, and a memorable, conversion-focused UI.",
+    solution_ar:
+      "بنينا حلًا مخصصًا للتجارة الإلكترونية مع تسليم طلبات آلي وبوابات دفع محلية مدمجة وواجهة استخدام لافتة تركّز على التحويل.",
     results: [
       "Distinctive brand identity",
       "Seamless payment integration",
       "Automated digital delivery",
       "Mobile-responsive design",
     ],
+    results_ar: [
+      "هوية بصرية مميزة",
+      "تكامل دفع سلس",
+      "تسليم رقمي آلي",
+      "تصميم متجاوب مع الجوال",
+    ],
     testimonial: {
       quote:
         "They didn't just build a website; they built a sales machine. The ROI was clear within the first month of launching.",
+      quote_ar:
+        "لم يكتفوا ببناء موقع؛ بنوا ماكينة مبيعات حقيقية. وضوح العائد على الاستثمار ظهر خلال الشهر الأول من الإطلاق.",
       author: "Flixs Store Management",
+      author_ar: "إدارة متجر فليكس",
       role: "Management",
+      role_ar: "فريق الإدارة",
     },
     techStack: ["WordPress", "WooCommerce", "PHP", "Tailwind CSS"],
     coverImage: "/images/flixs-store.jpg",
@@ -111,19 +145,33 @@ export const projects: Project[] = [
       "أصول تسويقية ذات تأثير قوي وواجهة متجر سهلة الاستخدام مصممة لتحقيق أقصى تحويل في يوم الإطلاق.",
     challenge:
       "The client required a striking visual identity and a storefront to announce their grand opening and launch-day discounts.",
+    challenge_ar:
+      "احتاج العميل إلى هوية بصرية لافتة وواجهة متجر تعلن عن افتتاحه الكبير وعروض يوم الإطلاق.",
     solution:
       "We designed high-impact marketing creatives and a user-friendly store interface specifically engineered to maximize launch-day conversions.",
+    solution_ar:
+      "صمّمنا أصولًا تسويقية عالية التأثير وواجهة متجر سهلة الاستخدام مصممة خصيصًا لتعظيم تحويلات يوم الإطلاق.",
     results: [
       "Successful launch campaign",
       "High user engagement",
       "Distinctive brand identity",
       "Conversion-optimized storefront",
     ],
+    results_ar: [
+      "حملة إطلاق ناجحة",
+      "تفاعل عالٍ من المستخدمين",
+      "هوية بصرية مميزة",
+      "واجهة متجر محسّنة للتحويل",
+    ],
     testimonial: {
       quote:
         "The designs were perfect for our launch. We got so much attention on social media and our conversion rate exceeded expectations.",
+      quote_ar:
+        "جاءت التصاميم مثالية ليوم الإطلاق، وحصلنا على اهتمام كبير على وسائل التواصل، وتجاوز معدل التحويل توقعاتنا.",
       author: "Belal Store Team",
+      author_ar: "فريق متجر بلال",
       role: "Management",
+      role_ar: "فريق الإدارة",
     },
     techStack: ["WordPress", "WooCommerce", "Figma", "Tailwind CSS"],
     coverImage: "/images/belal-store.png",

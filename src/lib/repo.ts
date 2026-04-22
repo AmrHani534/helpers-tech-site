@@ -30,17 +30,35 @@ function safeStringArr(v: unknown): string[] {
 }
 
 function rowToProject(row: Row, images: Row[] = []): Project {
+  const slug = safeString(row.slug);
+  // Fallback to seed-file _ar fields when DB has no localized columns populated yet.
+  const seed = seedProjects.find((p) => p.slug === slug);
+
   const testimonialQuote = safeString(row.testimonial_quote);
   const testimonial = testimonialQuote
     ? {
         quote: testimonialQuote,
+        quote_ar:
+          safeString(row.testimonial_quote_ar) ||
+          seed?.testimonial?.quote_ar ||
+          undefined,
         author: safeString(row.testimonial_author),
+        author_ar:
+          safeString(row.testimonial_author_ar) ||
+          seed?.testimonial?.author_ar ||
+          undefined,
         role: safeString(row.testimonial_role),
+        role_ar:
+          safeString(row.testimonial_role_ar) ||
+          seed?.testimonial?.role_ar ||
+          undefined,
       }
     : undefined;
 
+  const dbResultsAr = safeStringArr(row.results_ar);
+
   return {
-    slug: safeString(row.slug),
+    slug,
     title: safeString(row.title),
     title_ar: safeString(row.title_ar) || undefined,
     category: safeString(row.category),
@@ -49,8 +67,11 @@ function rowToProject(row: Row, images: Row[] = []): Project {
     summary: safeString(row.summary),
     summary_ar: safeString(row.summary_ar) || undefined,
     challenge: safeString(row.challenge),
+    challenge_ar: safeString(row.challenge_ar) || seed?.challenge_ar || undefined,
     solution: safeString(row.solution),
+    solution_ar: safeString(row.solution_ar) || seed?.solution_ar || undefined,
     results: safeStringArr(row.results),
+    results_ar: dbResultsAr.length ? dbResultsAr : seed?.results_ar,
     testimonial,
     techStack: safeStringArr(row.tech_stack),
     coverImage: safeString(row.cover_image, "/images/placeholder-project.svg"),

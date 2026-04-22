@@ -38,7 +38,7 @@ export default async function AboutPage() {
           {stats.map((s) => (
             <div key={s.label}>
               <div className="font-display text-3xl font-semibold text-white">
-                {s.value}
+                {isAr ? s.value_ar : s.value}
               </div>
               <div className="mt-1 text-xs uppercase tracking-wider text-slate-500">
                 {isAr ? s.label_ar : s.label}

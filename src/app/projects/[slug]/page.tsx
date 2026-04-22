@@ -114,11 +114,15 @@ export default async function ProjectPage({ params }: { params: Params }) {
         <div className="container-app grid gap-8 md:grid-cols-3">
           <div className="surface p-7">
             <span className="eyebrow mb-3">{t.projects.challenge}</span>
-            <p className="text-slate-300 leading-relaxed">{project.challenge}</p>
+            <p className="text-slate-300 leading-relaxed">
+              {isAr && project.challenge_ar ? project.challenge_ar : project.challenge}
+            </p>
           </div>
           <div className="surface p-7">
             <span className="eyebrow mb-3">{t.projects.solution}</span>
-            <p className="text-slate-300 leading-relaxed">{project.solution}</p>
+            <p className="text-slate-300 leading-relaxed">
+              {isAr && project.solution_ar ? project.solution_ar : project.solution}
+            </p>
           </div>
           <div className="surface p-7">
             <span className="eyebrow mb-3">{t.projects.techStack}</span>
@@ -138,7 +142,7 @@ export default async function ProjectPage({ params }: { params: Params }) {
           <div className="surface p-8">
             <span className="eyebrow mb-4">{t.projects.results}</span>
             <ul className="grid gap-3 sm:grid-cols-2">
-              {project.results.map((r) => (
+              {(isAr && project.results_ar ? project.results_ar : project.results).map((r) => (
                 <li key={r} className="flex items-start gap-3 text-sm text-slate-200">
                   <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-emerald-400" />
                   <span>{r}</span>
@@ -178,12 +182,14 @@ export default async function ProjectPage({ params }: { params: Params }) {
             <figure className="relative surface p-10">
               <Quote className="absolute right-6 top-6 h-10 w-10 text-brand-500/30 rtl:right-auto rtl:left-6" />
               <blockquote className="text-xl md:text-2xl font-medium text-white leading-relaxed max-w-3xl">
-                “{project.testimonial.quote}”
+                “{isAr && project.testimonial.quote_ar ? project.testimonial.quote_ar : project.testimonial.quote}”
               </blockquote>
               <figcaption className="mt-5 text-sm text-slate-400">
-                <span className="text-white font-medium">{project.testimonial.author}</span>
+                <span className="text-white font-medium">
+                  {isAr && project.testimonial.author_ar ? project.testimonial.author_ar : project.testimonial.author}
+                </span>
                 {" · "}
-                {project.testimonial.role}
+                {isAr && project.testimonial.role_ar ? project.testimonial.role_ar : project.testimonial.role}
               </figcaption>
             </figure>
           </div>

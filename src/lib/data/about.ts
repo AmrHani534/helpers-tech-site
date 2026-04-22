@@ -64,8 +64,8 @@ export const about = {
 };
 
 export const stats = [
-  { label: "Projects Delivered", label_ar: "مشروع منجز", value: "20+" },
-  { label: "Client Retention", label_ar: "معدل الاحتفاظ", value: "95%" },
-  { label: "Avg. Launch Time", label_ar: "متوسط وقت الإطلاق", value: "3 wks" },
-  { label: "Hours of Manual Work Saved", label_ar: "ساعات عمل تم توفيرها", value: "10,000+" },
+  { label: "Projects Delivered", label_ar: "مشروع منجز", value: "20+", value_ar: "+20" },
+  { label: "Client Retention", label_ar: "معدل الاحتفاظ", value: "95%", value_ar: "95%" },
+  { label: "Avg. Launch Time", label_ar: "متوسط وقت الإطلاق", value: "3 wks", value_ar: "3 أسابيع" },
+  { label: "Hours of Manual Work Saved", label_ar: "ساعات عمل تم توفيرها", value: "10,000+", value_ar: "+10,000" },
 ];
