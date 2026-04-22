@@ -6,7 +6,7 @@ import { getLocale } from "@/lib/locale";
 import { FinalCta } from "@/components/home/final-cta";
 import { ProcessSection } from "@/components/home/process";
 import { Differentiators } from "@/components/home/differentiators";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -71,26 +71,17 @@ export default async function ServicesPage() {
                       </div>
                     ))}
                   </div>
-                  <div className="mt-6 grid grid-cols-3 gap-2 text-center">
-                    <div className="surface p-4">
-                      <div className="font-display text-xl text-white">1–6 wk</div>
-                      <div className="mt-0.5 text-[11px] uppercase tracking-wider text-slate-500">
-                        Typical delivery
-                      </div>
-                    </div>
-                    <div className="surface p-4">
-                      <div className="font-display text-xl text-white">Fixed</div>
-                      <div className="mt-0.5 text-[11px] uppercase tracking-wider text-slate-500">
-                        Flat pricing
-                      </div>
-                    </div>
-                    <div className="surface p-4">
-                      <div className="font-display text-xl text-white">100%</div>
-                      <div className="mt-0.5 text-[11px] uppercase tracking-wider text-slate-500">
-                        Code ownership
-                      </div>
-                    </div>
-                  </div>
+                  <ul className="mt-6 grid gap-2 sm:grid-cols-3">
+                    {service.features.map((f) => (
+                      <li
+                        key={f}
+                        className="flex items-start gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-3 py-2.5 text-xs text-slate-200"
+                      >
+                        <Check className="mt-0.5 h-3.5 w-3.5 flex-none text-emerald-400" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </article>
             );

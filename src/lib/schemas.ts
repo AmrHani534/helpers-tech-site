@@ -66,3 +66,22 @@ export const faqSchema = z.object({
   order_index: z.number().default(0),
   published: z.boolean().default(true),
 });
+
+export const careerApplicationSchema = z.object({
+  full_name: z.string().min(2, "Name is too short").max(120),
+  email: z.string().email("Invalid email"),
+  phone: z.string().max(40).optional().or(z.literal("")),
+  location: z.string().max(120).optional().or(z.literal("")),
+  role: z.string().min(2, "Please pick a role").max(120),
+  experience_years: z.string().max(40).optional().or(z.literal("")),
+  linkedin: z.string().max(300).optional().or(z.literal("")),
+  portfolio: z.string().max(300).optional().or(z.literal("")),
+  cover_letter: z
+    .string()
+    .min(20, "Please share a bit more about yourself")
+    .max(8000),
+  cv_url: z.string().optional().or(z.literal("")),
+  cv_filename: z.string().max(300).optional().or(z.literal("")),
+});
+
+export type CareerApplicationInput = z.infer<typeof careerApplicationSchema>;

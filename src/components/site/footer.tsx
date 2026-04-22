@@ -122,8 +122,8 @@ export function Footer({ locale }: { locale: Locale }) {
                   </li>
                 ))}
                 <li>
-                  <Link href="/admin" className="text-slate-500 hover:text-slate-300">
-                    Admin
+                  <Link href="/careers" className="text-slate-300 hover:text-white">
+                    Careers
                   </Link>
                 </li>
               </ul>

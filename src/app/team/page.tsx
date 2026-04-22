@@ -31,13 +31,13 @@ export default async function TeamPage() {
       />
 
       <section className="pb-20">
-        <div className="container-app grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="container-app grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {team.map((member) => (
             <article key={member.slug} className="group surface surface-hover overflow-hidden">
-              <div className="relative aspect-[4/5] overflow-hidden bg-ink-800">
+              <div className="relative aspect-square overflow-hidden bg-ink-800">
                 {member.placeholder ? (
                   <div className="flex h-full items-center justify-center bg-gradient-to-br from-brand-500/25 to-accent-600/25">
-                    <span className="font-display text-6xl font-semibold text-white/80">
+                    <span className="font-display text-5xl font-semibold text-white/80">
                       {member.name
                         .split(" ")
                         .map((p) => p[0])
@@ -51,47 +51,44 @@ export default async function TeamPage() {
                     alt={member.name}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/95 via-transparent to-transparent" />
-                <div className="absolute bottom-5 left-5 right-5">
-                  <h2 className="text-xl font-semibold text-white">
-                    {isAr && member.name_ar ? member.name_ar : member.name}
-                  </h2>
-                  <p className="mt-1 text-sm text-slate-300">
-                    {isAr && member.role_ar ? member.role_ar : member.role}
-                  </p>
-                </div>
               </div>
-              <div className="p-6">
-                <p className="text-sm leading-relaxed text-slate-400">
+              <div className="p-4">
+                <h2 className="text-sm font-semibold text-white">
+                  {isAr && member.name_ar ? member.name_ar : member.name}
+                </h2>
+                <p className="mt-0.5 text-xs text-slate-400">
+                  {isAr && member.role_ar ? member.role_ar : member.role}
+                </p>
+                <p className="mt-2.5 line-clamp-3 text-xs leading-relaxed text-slate-400">
                   {isAr && member.bio_ar ? member.bio_ar : member.bio}
                 </p>
-                <div className="mt-5 flex items-center gap-2">
+                <div className="mt-3 flex items-center gap-1.5">
                   {member.socials?.linkedin ? (
                     <a
                       href={member.socials.linkedin}
                       target="_blank"
                       rel="noreferrer"
                       aria-label={`${member.name} on LinkedIn`}
-                      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 hover:text-white"
+                      className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 hover:text-white"
                     >
-                      <Linkedin className="h-4 w-4" />
+                      <Linkedin className="h-3.5 w-3.5" />
                     </a>
                   ) : null}
                   {member.socials?.email ? (
                     <a
                       href={`mailto:${member.socials.email}`}
                       aria-label={`Email ${member.name}`}
-                      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 hover:text-white"
+                      className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 hover:text-white"
                     >
-                      <Mail className="h-4 w-4" />
+                      <Mail className="h-3.5 w-3.5" />
                     </a>
                   ) : null}
                   {member.placeholder ? (
-                    <span className="ml-auto text-[11px] uppercase tracking-wider text-amber-300/80">
-                      Photo & title coming soon
+                    <span className="ml-auto text-[10px] uppercase tracking-wider text-amber-300/80">
+                      Coming soon
                     </span>
                   ) : null}
                 </div>
@@ -106,11 +103,11 @@ export default async function TeamPage() {
               <h3 className="heading-md text-white">Want to join the team?</h3>
               <p className="mt-2 text-slate-400">
                 We&apos;re always open to meeting product-minded engineers and designers.
-                Drop us a line with your work — we read everything.
+                Send us your CV and a short note — we read everything.
               </p>
             </div>
-            <Link href="/contact" className="btn-primary">
-              Say hello <ArrowUpRight className="h-4 w-4" />
+            <Link href="/careers" className="btn-primary">
+              Apply now <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

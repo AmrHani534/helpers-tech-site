@@ -1,4 +1,12 @@
-import { Briefcase, Cpu, MessageSquare, ShieldCheck, type LucideIcon } from "lucide-react";
+import {
+  Briefcase,
+  Cpu,
+  MessageSquare,
+  ShieldCheck,
+  Rocket,
+  LifeBuoy,
+  type LucideIcon,
+} from "lucide-react";
 
 export type Differentiator = {
   icon: LucideIcon;
@@ -44,5 +52,23 @@ export const differentiators: Differentiator[] = [
       "No vendor lock-in. You pay for it, you own it — the code, the designs, the data. Forever.",
     description_ar:
       "لا قيود ولا احتكار. أنت تدفع، وأنت تملك — الكود، التصاميم، والبيانات. للأبد.",
+  },
+  {
+    icon: Rocket,
+    title: "Ship in Weeks, Not Quarters",
+    title_ar: "إطلاق خلال أسابيع، لا أشهر",
+    description:
+      "A senior pod that moves fast. Most projects launch in 2–6 weeks — tightly scoped, ruthlessly prioritized, shipped.",
+    description_ar:
+      "فريق خبير يتحرك بسرعة. معظم المشاريع تُطلق خلال ٢ إلى ٦ أسابيع — نطاق محدد، أولويات صارمة، وإطلاق فعلي.",
+  },
+  {
+    icon: LifeBuoy,
+    title: "Support After Launch",
+    title_ar: "دعم مستمر بعد الإطلاق",
+    description:
+      "We don't disappear on launch day. Ongoing optimization, bug-fixing, and growth experiments are built into every engagement.",
+    description_ar:
+      "لا نختفي بعد الإطلاق. الدعم المستمر وتحسينات الأداء وتجارب النمو جزء من كل تعاون.",
   },
 ];

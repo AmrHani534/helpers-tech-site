@@ -31,38 +31,44 @@ export default async function ProjectsPage() {
       />
 
       <section className="pb-24">
-        <div className="container-app grid gap-6 md:grid-cols-2">
+        <div className="container-app grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project) => (
             <Link
               key={project.slug}
               href={`/projects/${project.slug}`}
-              className="group relative overflow-hidden rounded-2xl border border-white/5 bg-ink-900/60 transition hover:border-white/15"
+              className="group relative overflow-hidden rounded-xl border border-white/5 bg-ink-900/60 transition hover:border-white/15 hover:-translate-y-0.5 duration-300"
             >
-              <div className="relative aspect-[16/10] overflow-hidden">
+              <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
                   src={project.coverImage}
                   alt={project.title}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/70 to-ink-950/20" />
               </div>
-              <div className="p-6">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="chip">{project.category}</span>
-                  <span className="chip">{project.industry}</span>
-                  <span className="chip">{project.year}</span>
+              <div className="p-4">
+                <div className="flex flex-wrap items-center gap-1.5">
+                  <span className="chip !px-2 !py-0.5 !text-[10px]">
+                    {project.category}
+                  </span>
+                  <span className="chip !px-2 !py-0.5 !text-[10px]">
+                    {project.industry}
+                  </span>
+                  <span className="chip !px-2 !py-0.5 !text-[10px]">
+                    {project.year}
+                  </span>
                 </div>
-                <h2 className="mt-3 heading-md text-white">
+                <h2 className="mt-2.5 text-base font-semibold text-white">
                   {isAr && project.title_ar ? project.title_ar : project.title}
                 </h2>
-                <p className="mt-2 line-clamp-2 text-sm text-slate-400">
+                <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-slate-400">
                   {isAr && project.summary_ar ? project.summary_ar : project.summary}
                 </p>
-                <div className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-brand-300">
+                <div className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-brand-300">
                   Read case study
-                  <ArrowUpRight className="h-4 w-4" />
+                  <ArrowUpRight className="h-3.5 w-3.5" />
                 </div>
               </div>
             </Link>

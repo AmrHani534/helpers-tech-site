@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import { headers } from "next/headers";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { getLocale, isRtl } from "@/lib/locale";
@@ -71,6 +72,13 @@ export default async function RootLayout({
   const rtl = isRtl(locale);
   const hasChatKey = Boolean(process.env.GOOGLE_GENERATIVE_AI_API_KEY);
 
+  // Admin routes use their own clean chrome — suppress the public navbar,
+  // footer, WhatsApp, and chat widget. The pathname is forwarded by
+  // middleware via the `x-pathname` request header.
+  const h = await headers();
+  const pathname = h.get("x-pathname") ?? "";
+  const isAdmin = pathname.startsWith("/admin");
+
   return (
     // suppressHydrationWarning is applied narrowly to <html> and <body> only.
     // It silences attribute-level mismatches on those two specific elements
@@ -94,13 +102,13 @@ export default async function RootLayout({
         >
           Skip to content
         </a>
-        <Navbar locale={locale} />
+        {!isAdmin ? <Navbar locale={locale} /> : null}
         <main id="main" className="flex-1">
           {children}
         </main>
-        <Footer locale={locale} />
-        <WhatsAppButton />
-        {hasChatKey ? <ChatWidget /> : null}
+        {!isAdmin ? <Footer locale={locale} /> : null}
+        {!isAdmin ? <WhatsAppButton /> : null}
+        {!isAdmin && hasChatKey ? <ChatWidget /> : null}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

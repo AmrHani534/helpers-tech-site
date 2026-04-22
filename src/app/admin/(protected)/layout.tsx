@@ -68,15 +68,41 @@ export default async function AdminProtectedLayout({
   }
 
   return (
-    <div className="min-h-screen bg-ink-950 pt-20">
-      <div className="container-app grid gap-8 pb-20 lg:grid-cols-[240px_1fr]">
-        <aside className="hidden lg:block">
-          <div className="sticky top-24 space-y-1">
-            <div className="mb-5 flex items-center gap-2">
-              <Logo className="" />
-            </div>
-            <p className="mb-3 px-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+    <div className="min-h-screen bg-ink-950">
+      <header className="sticky top-0 z-30 border-b border-white/5 bg-ink-950/90 backdrop-blur-xl">
+        <div className="container-app flex h-14 items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Logo />
+            <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-300">
               Admin
+            </span>
+          </div>
+          <div className="flex items-center gap-3 text-xs text-slate-400">
+            <span className="hidden sm:inline">{user.email}</span>
+            <Link
+              href="/"
+              className="text-slate-400 hover:text-white"
+              title="Back to public site"
+            >
+              View site
+            </Link>
+            <form action="/admin/logout" method="post">
+              <button
+                type="submit"
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-slate-200 hover:bg-white/10"
+              >
+                <LogOut className="h-3.5 w-3.5" />
+                Sign out
+              </button>
+            </form>
+          </div>
+        </div>
+      </header>
+      <div className="container-app grid gap-8 py-8 pb-20 lg:grid-cols-[220px_1fr]">
+        <aside className="hidden lg:block">
+          <div className="sticky top-20 space-y-1">
+            <p className="mb-3 px-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+              Sections
             </p>
             {nav.map((n) => {
               const Icon = n.icon;
@@ -91,15 +117,6 @@ export default async function AdminProtectedLayout({
                 </Link>
               );
             })}
-            <form action="/admin/logout" method="post" className="pt-4">
-              <button
-                type="submit"
-                className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-white"
-              >
-                <LogOut className="h-4 w-4" />
-                Sign out
-              </button>
-            </form>
           </div>
         </aside>
         <section className="min-w-0">

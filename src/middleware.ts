@@ -6,13 +6,26 @@ type CookieToSet = { name: string; value: string; options?: CookieOptions };
 /**
  * Refreshes the Supabase auth session on every request. When Supabase isn't
  * configured (no env vars) we pass through so the marketing site still works.
+ *
+ * Also propagates the pathname as an `x-pathname` request header so the root
+ * layout can read it via `headers()` and swap between the public site chrome
+ * and the bare admin layout.
  */
 export async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !anonKey) return NextResponse.next();
 
-  let response = NextResponse.next({ request });
+  // Propagate the pathname so server components can branch on it.
+  const forwardedHeaders = new Headers(request.headers);
+  forwardedHeaders.set("x-pathname", pathname);
+
+  if (!url || !anonKey) {
+    return NextResponse.next({ request: { headers: forwardedHeaders } });
+  }
+
+  let response = NextResponse.next({ request: { headers: forwardedHeaders } });
 
   const supabase = createServerClient(url, anonKey, {
     cookies: {
@@ -21,7 +34,7 @@ export async function middleware(request: NextRequest) {
       },
       setAll(cookiesToSet: CookieToSet[]) {
         cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-        response = NextResponse.next({ request });
+        response = NextResponse.next({ request: { headers: forwardedHeaders } });
         cookiesToSet.forEach(({ name, value, options }) =>
           response.cookies.set(name, value, options),
         );

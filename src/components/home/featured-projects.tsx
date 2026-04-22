@@ -41,17 +41,21 @@ export async function FeaturedProjects({ locale }: { locale: Locale }) {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-ink-950/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/75 to-ink-950/30" />
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-5">
-                <div className="flex items-center gap-2">
-                  <span className="chip">{project.category}</span>
-                  <span className="chip">{project.industry}</span>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="chip !bg-ink-950/80 !border-white/15 !text-white">
+                    {project.category}
+                  </span>
+                  <span className="chip !bg-ink-950/80 !border-white/15 !text-white">
+                    {project.industry}
+                  </span>
                 </div>
-                <h3 className="mt-3 text-lg font-semibold text-white">
+                <h3 className="mt-3 text-lg font-semibold text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
                   {isAr && project.title_ar ? project.title_ar : project.title}
                 </h3>
-                <p className="mt-1 line-clamp-2 text-sm text-slate-300">
+                <p className="mt-1 line-clamp-2 text-sm text-slate-200/90 drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
                   {isAr && project.summary_ar ? project.summary_ar : project.summary}
                 </p>
               </div>

@@ -16,6 +16,7 @@ export type Service = {
   description: string;
   description_ar: string;
   deliverables: string[];
+  features: string[];
   accent: string;
 };
 
@@ -37,6 +38,11 @@ export const services: Service[] = [
       "Internal tools & dashboards",
       "Headless CMS integrations",
     ],
+    features: [
+      "Core Web Vitals-optimized",
+      "Accessible by default (WCAG AA)",
+      "SEO & analytics built-in",
+    ],
     accent: "from-brand-500/30 to-transparent",
   },
   {
@@ -55,6 +61,11 @@ export const services: Service[] = [
       "Push notifications & analytics",
       "Payment & auth integrations",
       "App Store & Play Store launch",
+    ],
+    features: [
+      "Offline-first architecture",
+      "Crash & performance monitoring",
+      "Release pipeline set up for you",
     ],
     accent: "from-accent-500/30 to-transparent",
   },
@@ -75,6 +86,11 @@ export const services: Service[] = [
       "Custom LLM integrations",
       "Document & data extraction",
     ],
+    features: [
+      "Private data stays private",
+      "Measurable hours saved per month",
+      "Model-agnostic (Gemini / OpenAI / local)",
+    ],
     accent: "from-emerald-400/20 to-transparent",
   },
   {
@@ -93,6 +109,11 @@ export const services: Service[] = [
       "Performance marketing setup",
       "Analytics & CRO",
       "SEO & content strategy",
+    ],
+    features: [
+      "Revenue-focused KPIs",
+      "Weekly experimentation cadence",
+      "Dashboards you actually read",
     ],
     accent: "from-amber-400/20 to-transparent",
   },
