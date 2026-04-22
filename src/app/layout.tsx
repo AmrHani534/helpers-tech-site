@@ -72,8 +72,22 @@ export default async function RootLayout({
   const hasChatKey = Boolean(process.env.GOOGLE_GENERATIVE_AI_API_KEY);
 
   return (
-    <html lang={locale} dir={rtl ? "rtl" : "ltr"} className={`${inter.variable} ${spaceGrotesk.variable}`}>
-      <body className="min-h-screen flex flex-col">
+    // suppressHydrationWarning is applied narrowly to <html> and <body> only.
+    // It silences attribute-level mismatches on those two specific elements
+    // (it does NOT cascade to descendants — React still enforces hydration
+    // everywhere else). This is the React-documented escape hatch for
+    // browser-extension DOM mutations such as Dashlane's `__processed_<uuid>__`
+    // attribute, ColorZilla's `cz-shortcut-listen`, Grammarly's
+    // `data-new-gr-c-s-check-loaded`, or dark-reader class injections, which
+    // are attached to <html>/<body> before React hydrates and cannot be
+    // controlled from application code.
+    <html
+      lang={locale}
+      dir={rtl ? "rtl" : "ltr"}
+      className={`${inter.variable} ${spaceGrotesk.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="min-h-screen flex flex-col" suppressHydrationWarning>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-md focus:bg-brand-500 focus:px-3 focus:py-2 focus:text-white"

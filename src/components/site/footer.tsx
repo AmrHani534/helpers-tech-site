@@ -4,9 +4,14 @@ import { site } from "@/lib/site";
 import { MapPin, Mail, Phone, Linkedin, Facebook } from "lucide-react";
 import { getDict, type Locale } from "@/lib/i18n";
 
+// Computed once at module load so server render and the client bundle both
+// use the same value — avoids a rare hydration mismatch at year-boundary
+// midnights when server and client disagree on getFullYear().
+const FOOTER_YEAR = new Date().getFullYear();
+
 export function Footer({ locale }: { locale: Locale }) {
   const t = getDict(locale);
-  const year = new Date().getFullYear();
+  const year = FOOTER_YEAR;
 
   return (
     <footer className="mt-24 border-t border-white/5 bg-ink-950/70">
