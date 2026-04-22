@@ -1,5 +1,5 @@
 import { getSupabaseServer } from "@/lib/supabase/server";
-import { deleteMessage, markMessageRead } from "../actions";
+import { deleteMessage, markMessageRead } from "../../actions";
 import { CheckCircle2, Trash2, Clock, Mail, MessageCircle } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 

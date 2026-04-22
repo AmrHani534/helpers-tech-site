@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Plus } from "lucide-react";
 import { getSupabaseServer } from "@/lib/supabase/server";
 import { AdminTable } from "@/components/admin/admin-table";
-import { deleteFaq } from "../actions";
+import { deleteFaq } from "../../actions";
 
 export default async function AdminFaqsPage() {
   const supabase = await getSupabaseServer();

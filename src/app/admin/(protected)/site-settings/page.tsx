@@ -1,6 +1,6 @@
 import { Save } from "lucide-react";
 import { getSupabaseServer } from "@/lib/supabase/server";
-import { saveSiteSettings } from "../actions";
+import { saveSiteSettings } from "../../actions";
 
 const FIELDS: { key: string; label: string; placeholder?: string }[] = [
   { key: "hero_eyebrow", label: "Hero eyebrow" },
