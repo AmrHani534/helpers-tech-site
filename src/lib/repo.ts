@@ -5,7 +5,7 @@
  * fully even before the DB is wired up.
  */
 
-import { getSupabaseServer } from "./supabase/server";
+import { getSupabasePublic } from "./supabase/server";
 import { projects as seedProjects, type Project } from "./data/projects";
 import { teamMembers as seedTeam, type TeamMember } from "./data/team";
 import {
@@ -66,7 +66,7 @@ function rowToProject(row: Row, images: Row[] = []): Project {
 }
 
 export async function getProjects({ featuredOnly = false } = {}): Promise<Project[]> {
-  const supabase = await getSupabaseServer();
+  const supabase = await getSupabasePublic();
   if (!supabase) {
     const list = seedProjects.filter((p) => p.published && (!featuredOnly || p.featured));
     return [...list].sort((a, b) => a.orderIndex - b.orderIndex);
@@ -95,7 +95,7 @@ export async function getProjects({ featuredOnly = false } = {}): Promise<Projec
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
-  const supabase = await getSupabaseServer();
+  const supabase = await getSupabasePublic();
   if (!supabase) {
     return seedProjects.find((p) => p.slug === slug && p.published) ?? null;
   }
@@ -115,7 +115,7 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
 }
 
 export async function getTeam(): Promise<TeamMember[]> {
-  const supabase = await getSupabaseServer();
+  const supabase = await getSupabasePublic();
   if (!supabase) return [...seedTeam].sort((a, b) => a.orderIndex - b.orderIndex);
   const { data, error } = await supabase
     .from("team_members")
@@ -139,7 +139,7 @@ export async function getTeam(): Promise<TeamMember[]> {
 }
 
 export async function getTestimonials({ featuredOnly = false } = {}): Promise<Testimonial[]> {
-  const supabase = await getSupabaseServer();
+  const supabase = await getSupabasePublic();
   if (!supabase) {
     const list = featuredOnly ? seedTestimonials.filter((t) => t.featured) : seedTestimonials;
     return [...list].sort((a, b) => a.orderIndex - b.orderIndex);
@@ -162,7 +162,7 @@ export async function getTestimonials({ featuredOnly = false } = {}): Promise<Te
 }
 
 export async function getFaqs(): Promise<Faq[]> {
-  const supabase = await getSupabaseServer();
+  const supabase = await getSupabasePublic();
   if (!supabase) return seedFaqs.filter((f) => f.published);
   const { data, error } = await supabase
     .from("faqs")
@@ -183,7 +183,7 @@ export async function getFaqs(): Promise<Faq[]> {
 }
 
 export async function getSiteSettings(): Promise<Record<string, string>> {
-  const supabase = await getSupabaseServer();
+  const supabase = await getSupabasePublic();
   if (!supabase) return {};
   const { data, error } = await supabase.from("site_settings").select("key, value");
   if (error || !data) return {};

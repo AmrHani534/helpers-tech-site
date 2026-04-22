@@ -32,6 +32,22 @@ export async function getSupabaseServer() {
   });
 }
 
+/**
+ * Cookie-less anon Supabase client for public read paths.
+ *
+ * Use this from server components / generateStaticParams / generateMetadata
+ * when no user session is needed — it does NOT touch request-scoped `cookies()`,
+ * so it works during build, prerendering, and outside any request scope.
+ */
+export async function getSupabasePublic() {
+  if (!isSupabaseConfigured()) return null;
+  const { url, anonKey } = getSupabaseEnv();
+  const { createClient } = await import("@supabase/supabase-js");
+  return createClient(url!, anonKey!, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+}
+
 /** Admin client using the service role key. Server-only. */
 export async function getSupabaseAdmin() {
   if (!isSupabaseConfigured()) return null;
