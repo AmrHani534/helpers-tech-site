@@ -30,39 +30,33 @@ export function Hero({ locale }: { locale: Locale }) {
           </div>
 
           <h1 className="heading-xl text-white">
-            <span className="block">Build digital products</span>
-            <span className="text-gradient block">that actually sell.</span>
+            <span className="block">{t.hero.titleA}</span>
+            <span className="text-gradient block">{t.hero.titleB}</span>
           </h1>
 
           <p className="mt-6 max-w-2xl text-base md:text-lg leading-relaxed text-slate-300">
-            We combine world-class design, robust engineering, and AI automation to
-            help ambitious brands in Egypt and beyond grow revenue — not just traffic.
+            {t.hero.description}
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <Link href="/contact" className="btn-primary">
-              {t.hero.cta_primary}
+              {t.hero.ctaPrimary}
               <ArrowRight className="h-4 w-4 rtl:rotate-180" />
             </Link>
             <Link href="/projects" className="btn-secondary">
               <PlayCircle className="h-4 w-4" />
-              {t.hero.cta_secondary}
+              {t.hero.ctaSecondary}
             </Link>
           </div>
 
           <dl className="mt-14 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4">
-            {[
-              { k: "20+", v: "Projects shipped" },
-              { k: "95%", v: "Client retention" },
-              { k: "3 wks", v: "Avg. launch time" },
-              { k: "24/7", v: "AI automations" },
-            ].map((s) => (
-              <div key={s.v}>
+            {t.hero.stats.map((s) => (
+              <div key={s.label}>
                 <dt className="font-display text-2xl font-semibold text-white sm:text-3xl">
-                  {s.k}
+                  {s.value}
                 </dt>
                 <dd className="mt-1 text-xs uppercase tracking-wider text-slate-500">
-                  {s.v}
+                  {s.label}
                 </dd>
               </div>
             ))}

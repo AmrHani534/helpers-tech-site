@@ -8,16 +8,16 @@ import { SectionHeading } from "@/components/site/section";
 import { getDict, type Locale } from "@/lib/i18n";
 
 export function ServicesOverview({ locale }: { locale: Locale }) {
-  const t = getDict(locale).sections;
+  const t = getDict(locale);
   const isAr = locale === "ar";
 
   return (
     <section id="services" className="py-20 md:py-28">
       <div className="container-app">
         <SectionHeading
-          eyebrow={t.services}
-          title={t.servicesHeading}
-          description="Four deep capabilities, fused into one team. No silos, no hand-offs — every engagement pulls from all four."
+          eyebrow={t.sections.services}
+          title={t.sections.servicesHeading}
+          description={t.sections.servicesDescription}
         />
 
         <div className="grid gap-5 md:grid-cols-2">
@@ -50,12 +50,14 @@ export function ServicesOverview({ locale }: { locale: Locale }) {
                     {isAr ? service.description_ar : service.description}
                   </p>
                   <ul className="mt-5 grid grid-cols-2 gap-1.5 text-xs text-slate-300">
-                    {service.deliverables.map((d) => (
-                      <li key={d} className="flex items-center gap-1.5">
-                        <span className="inline-block h-1 w-1 rounded-full bg-brand-400" />
-                        {d}
-                      </li>
-                    ))}
+                    {(isAr ? service.deliverables_ar : service.deliverables).map(
+                      (d) => (
+                        <li key={d} className="flex items-center gap-1.5">
+                          <span className="inline-block h-1 w-1 rounded-full bg-brand-400" />
+                          {d}
+                        </li>
+                      ),
+                    )}
                   </ul>
                 </div>
               </motion.div>
@@ -65,7 +67,7 @@ export function ServicesOverview({ locale }: { locale: Locale }) {
 
         <div className="mt-10">
           <Link href="/services" className="btn-ghost">
-            Explore all services <ArrowRight className="h-4 w-4 rtl:rotate-180" />
+            {t.common.exploreAllServices} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
           </Link>
         </div>
       </div>

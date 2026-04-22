@@ -19,7 +19,7 @@ export function FinalCta({ locale }: { locale: Locale }) {
             <p className="mt-4 text-base md:text-lg text-slate-300">{t.ctaBody}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/contact" className="btn-primary">
-                Start a project <ArrowRight className="h-4 w-4 rtl:rotate-180" />
+                {t.ctaPrimary} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
               </Link>
               <a
                 href={site.whatsappLink}
@@ -27,7 +27,7 @@ export function FinalCta({ locale }: { locale: Locale }) {
                 rel="noreferrer"
                 className="btn-secondary"
               >
-                <MessageCircle className="h-4 w-4" /> WhatsApp us
+                <MessageCircle className="h-4 w-4" /> {t.ctaWhatsapp}
               </a>
             </div>
           </div>

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, CheckCircle2, Quote } from "lucide-react";
 import { getProjectBySlug, getProjects } from "@/lib/repo";
 import { getLocale } from "@/lib/locale";
+import { getDict } from "@/lib/i18n";
 import { FinalCta } from "@/components/home/final-cta";
 
 type Params = Promise<{ slug: string }>;
@@ -18,15 +19,21 @@ export async function generateMetadata(
   { params }: { params: Params },
 ): Promise<Metadata> {
   const { slug } = await params;
-  const project = await getProjectBySlug(slug);
+  const [project, locale] = await Promise.all([
+    getProjectBySlug(slug),
+    getLocale(),
+  ]);
   if (!project) return { title: "Project not found" };
+  const isAr = locale === "ar";
+  const title = isAr && project.title_ar ? project.title_ar : project.title;
+  const description = isAr && project.summary_ar ? project.summary_ar : project.summary;
   return {
-    title: project.title,
-    description: project.summary,
+    title,
+    description,
     alternates: { canonical: `/projects/${project.slug}` },
     openGraph: {
-      title: project.title,
-      description: project.summary,
+      title,
+      description,
       images: [{ url: project.coverImage }],
     },
   };
@@ -41,6 +48,7 @@ export default async function ProjectPage({ params }: { params: Params }) {
   if (!project) notFound();
 
   const isAr = locale === "ar";
+  const t = getDict(locale);
   const related = (await getProjects()).filter((p) => p.slug !== project.slug).slice(0, 2);
 
   return (
@@ -53,13 +61,17 @@ export default async function ProjectPage({ params }: { params: Params }) {
             className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white"
           >
             <ArrowLeft className="h-4 w-4 rtl:rotate-180" />
-            All projects
+            {t.projects.allProjects}
           </Link>
           <div className="mt-6 grid gap-8 md:grid-cols-12">
             <div className="md:col-span-7">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="chip">{project.category}</span>
-                <span className="chip">{project.industry}</span>
+                <span className="chip">
+                  {t.projects.categories[project.category] ?? project.category}
+                </span>
+                <span className="chip">
+                  {t.projects.industries[project.industry] ?? project.industry}
+                </span>
                 <span className="chip">{project.year}</span>
               </div>
               <h1 className="mt-5 heading-xl text-white">
@@ -75,7 +87,8 @@ export default async function ProjectPage({ params }: { params: Params }) {
                   rel="noreferrer"
                   className="btn-secondary mt-6 w-fit"
                 >
-                  Visit live site <ArrowUpRight className="h-4 w-4" />
+                  {t.projects.visitLiveSite}{" "}
+                  <ArrowUpRight className="h-4 w-4 rtl:-scale-x-100" />
                 </a>
               ) : null}
             </div>
@@ -100,19 +113,19 @@ export default async function ProjectPage({ params }: { params: Params }) {
       <section className="py-14">
         <div className="container-app grid gap-8 md:grid-cols-3">
           <div className="surface p-7">
-            <span className="eyebrow mb-3">Challenge</span>
+            <span className="eyebrow mb-3">{t.projects.challenge}</span>
             <p className="text-slate-300 leading-relaxed">{project.challenge}</p>
           </div>
           <div className="surface p-7">
-            <span className="eyebrow mb-3">Solution</span>
+            <span className="eyebrow mb-3">{t.projects.solution}</span>
             <p className="text-slate-300 leading-relaxed">{project.solution}</p>
           </div>
           <div className="surface p-7">
-            <span className="eyebrow mb-3">Tech stack</span>
+            <span className="eyebrow mb-3">{t.projects.techStack}</span>
             <ul className="mt-1 flex flex-wrap gap-2">
-              {project.techStack.map((t) => (
-                <li key={t} className="chip">
-                  {t}
+              {project.techStack.map((tech) => (
+                <li key={tech} className="chip">
+                  {tech}
                 </li>
               ))}
             </ul>
@@ -123,7 +136,7 @@ export default async function ProjectPage({ params }: { params: Params }) {
       <section className="py-10">
         <div className="container-app">
           <div className="surface p-8">
-            <span className="eyebrow mb-4">Results</span>
+            <span className="eyebrow mb-4">{t.projects.results}</span>
             <ul className="grid gap-3 sm:grid-cols-2">
               {project.results.map((r) => (
                 <li key={r} className="flex items-start gap-3 text-sm text-slate-200">
@@ -163,7 +176,7 @@ export default async function ProjectPage({ params }: { params: Params }) {
         <section className="py-14">
           <div className="container-app">
             <figure className="relative surface p-10">
-              <Quote className="absolute right-6 top-6 h-10 w-10 text-brand-500/30" />
+              <Quote className="absolute right-6 top-6 h-10 w-10 text-brand-500/30 rtl:right-auto rtl:left-6" />
               <blockquote className="text-xl md:text-2xl font-medium text-white leading-relaxed max-w-3xl">
                 “{project.testimonial.quote}”
               </blockquote>
@@ -180,7 +193,7 @@ export default async function ProjectPage({ params }: { params: Params }) {
       {related.length ? (
         <section className="py-14">
           <div className="container-app">
-            <h3 className="heading-md mb-6 text-white">More case studies</h3>
+            <h3 className="heading-md mb-6 text-white">{t.projects.moreCaseStudies}</h3>
             <div className="grid gap-5 md:grid-cols-2">
               {related.map((p) => (
                 <Link
@@ -198,8 +211,12 @@ export default async function ProjectPage({ params }: { params: Params }) {
                     />
                   </div>
                   <div className="p-5">
-                    <span className="chip">{p.category}</span>
-                    <h4 className="mt-2 text-lg font-semibold text-white">{p.title}</h4>
+                    <span className="chip">
+                      {t.projects.categories[p.category] ?? p.category}
+                    </span>
+                    <h4 className="mt-2 text-lg font-semibold text-white">
+                      {isAr && p.title_ar ? p.title_ar : p.title}
+                    </h4>
                   </div>
                 </Link>
               ))}

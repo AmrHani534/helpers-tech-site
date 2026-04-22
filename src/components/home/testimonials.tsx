@@ -14,7 +14,7 @@ export async function Testimonials({ locale }: { locale: Locale }) {
         <SectionHeading
           eyebrow={t.testimonials}
           title={t.testimonialsHeading}
-          description="Straight from the founders and marketing leads who trusted Helpers to ship what matters."
+          description={t.testimonialsDescription}
         />
 
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -37,8 +37,12 @@ export async function Testimonials({ locale }: { locale: Locale }) {
                   {item.author.charAt(0)}
                 </div>
                 <div>
-                  <div className="text-sm font-medium text-white">{item.author}</div>
-                  <div className="text-xs text-slate-500">{item.role}</div>
+                  <div className="text-sm font-medium text-white">
+                    {isAr && item.author_ar ? item.author_ar : item.author}
+                  </div>
+                  <div className="text-xs text-slate-500">
+                    {isAr && item.role_ar ? item.role_ar : item.role}
+                  </div>
                 </div>
               </figcaption>
             </figure>

@@ -50,8 +50,12 @@ export const teamMembers: TeamMember[] = [
   {
     slug: "ahmed-reda",
     name: "Ahmed Reda",
+    name_ar: "أحمد رضا",
     role: "Engineer",
+    role_ar: "مهندس برمجيات",
     bio: "Bio coming soon — the admin dashboard lets you replace this placeholder with a real photo, title, and bio.",
+    bio_ar:
+      "السيرة الذاتية قريبًا — لوحة التحكم تتيح استبدال هذا النص بصورة وتعريف حقيقيين.",
     photo: "/images/placeholder-avatar.svg",
     featured: false,
     orderIndex: 3,
@@ -60,8 +64,12 @@ export const teamMembers: TeamMember[] = [
   {
     slug: "ahmed-eid",
     name: "Ahmed Eid",
+    name_ar: "أحمد عيد",
     role: "Engineer",
+    role_ar: "مهندس برمجيات",
     bio: "Bio coming soon — the admin dashboard lets you replace this placeholder with a real photo, title, and bio.",
+    bio_ar:
+      "السيرة الذاتية قريبًا — لوحة التحكم تتيح استبدال هذا النص بصورة وتعريف حقيقيين.",
     photo: "/images/placeholder-avatar.svg",
     featured: false,
     orderIndex: 4,

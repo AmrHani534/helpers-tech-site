@@ -94,7 +94,7 @@ export function Navbar({ locale }: { locale: Locale }) {
         <button
           onClick={() => setOpen((v) => !v)}
           className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white"
-          aria-label={open ? "Close menu" : "Open menu"}
+          aria-label={open ? getDict(locale).a11y.closeMenu : getDict(locale).a11y.openMenu}
           aria-expanded={open}
         >
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}

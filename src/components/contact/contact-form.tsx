@@ -2,35 +2,12 @@
 
 import { useState } from "react";
 import { Loader2, CheckCircle2, AlertCircle, Send } from "lucide-react";
-
-const projectTypes = [
-  "New Website / Redesign",
-  "E-Commerce Store",
-  "Mobile App (iOS/Android)",
-  "AI & Automation",
-  "Digital Marketing / Branding",
-  "Other / Custom Project",
-];
-
-const budgets = [
-  "Under $500 (Launch Pack)",
-  "$500 – $2,000",
-  "$2,000 – $5,000",
-  "$5,000 – $15,000",
-  "$15,000+",
-  "Flexible / Researching",
-];
-
-const timelines = [
-  "ASAP (Next 2 weeks)",
-  "Within 1 month",
-  "1–3 months",
-  "Flexible",
-];
+import { getDict, type Locale } from "@/lib/i18n";
 
 type State = "idle" | "loading" | "success" | "error";
 
-export function ContactForm() {
+export function ContactForm({ locale }: { locale: Locale }) {
+  const t = getDict(locale).contactForm;
   const [state, setState] = useState<State>("idle");
   const [error, setError] = useState<string | null>(null);
 
@@ -48,14 +25,14 @@ export function ContactForm() {
       });
       const data = (await res.json()) as { ok: boolean; error?: string };
       if (!res.ok || !data.ok) {
-        setError(data.error ?? "Something went wrong. Please try again.");
+        setError(data.error ?? t.errorGeneric);
         setState("error");
         return;
       }
       setState("success");
       (e.target as HTMLFormElement).reset();
     } catch {
-      setError("Network error. Please try again.");
+      setError(t.errorNetwork);
       setState("error");
     }
   };
@@ -66,17 +43,14 @@ export function ContactForm() {
         <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400">
           <CheckCircle2 className="h-7 w-7" />
         </div>
-        <h3 className="mt-5 heading-md text-white">Message received.</h3>
-        <p className="mt-2 max-w-md text-sm text-slate-400">
-          Thanks for reaching out. One of the founders will get back to you shortly
-          — usually within a few hours during business hours.
-        </p>
+        <h3 className="mt-5 heading-md text-white">{t.successHeading}</h3>
+        <p className="mt-2 max-w-md text-sm text-slate-400">{t.successBody}</p>
         <button
           onClick={() => setState("idle")}
           className="btn-secondary mt-8"
           type="button"
         >
-          Send another message
+          {t.sendAnother}
         </button>
       </div>
     );
@@ -85,36 +59,60 @@ export function ContactForm() {
   return (
     <form onSubmit={onSubmit} className="space-y-5" noValidate>
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="heading-md text-white">Tell us about your project</h2>
-        <span className="text-xs text-slate-500">* required</span>
+        <h2 className="heading-md text-white">{t.heading}</h2>
+        <span className="text-xs text-slate-500">{t.required}</span>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <Field label="Your name *" name="name" required placeholder="Jane Doe" />
         <Field
-          label="Email *"
+          label={t.fields.name}
+          name="name"
+          required
+          placeholder={t.placeholders.name}
+        />
+        <Field
+          label={t.fields.email}
           name="email"
           type="email"
           required
-          placeholder="you@company.com"
+          placeholder={t.placeholders.email}
         />
         <Field
-          label="WhatsApp / Phone"
+          label={t.fields.whatsapp}
           name="whatsapp"
-          placeholder="+20 111 844 5625"
+          placeholder={t.placeholders.whatsapp}
         />
-        <Field label="Company" name="company" placeholder="Acme Inc." />
+        <Field
+          label={t.fields.company}
+          name="company"
+          placeholder={t.placeholders.company}
+        />
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
-        <Select label="Project type *" name="project_type" options={projectTypes} />
-        <Select label="Budget" name="budget" options={budgets} />
-        <Select label="Timeline" name="timeline" options={timelines} />
+        <Select
+          label={t.fields.projectType}
+          name="project_type"
+          options={t.options.projectTypes}
+          placeholder={t.selectPlaceholder}
+        />
+        <Select
+          label={t.fields.budget}
+          name="budget"
+          options={t.options.budgets}
+          placeholder={t.selectPlaceholder}
+        />
+        <Select
+          label={t.fields.timeline}
+          name="timeline"
+          options={t.options.timelines}
+          placeholder={t.selectPlaceholder}
+        />
       </div>
 
       <div>
         <label className="label" htmlFor="message">
-          What are you trying to build? *
+          {t.fields.message}
         </label>
         <textarea
           id="message"
@@ -122,7 +120,7 @@ export function ContactForm() {
           required
           rows={5}
           className="input resize-y"
-          placeholder="Goals, audience, known constraints, links to anything relevant…"
+          placeholder={t.placeholders.message}
         />
       </div>
 
@@ -134,9 +132,7 @@ export function ContactForm() {
       ) : null}
 
       <div className="flex items-center justify-between gap-4">
-        <p className="text-xs text-slate-500">
-          We reply within a few hours on business days.
-        </p>
+        <p className="text-xs text-slate-500">{t.replyNote}</p>
         <button
           type="submit"
           disabled={state === "loading"}
@@ -145,11 +141,11 @@ export function ContactForm() {
           {state === "loading" ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />
-              Sending…
+              {t.sending}
             </>
           ) : (
             <>
-              Send message <Send className="h-4 w-4" />
+              {t.cta} <Send className="h-4 w-4" />
             </>
           )}
         </button>
@@ -173,7 +169,7 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={name} className="label">
+      <label className="label" htmlFor={name}>
         {label}
       </label>
       <input
@@ -183,7 +179,6 @@ function Field({
         required={required}
         placeholder={placeholder}
         className="input"
-        autoComplete="off"
       />
     </div>
   );
@@ -193,18 +188,22 @@ function Select({
   label,
   name,
   options,
+  placeholder,
 }: {
   label: string;
   name: string;
-  options: string[];
+  options: readonly string[];
+  placeholder: string;
 }) {
   return (
     <div>
-      <label htmlFor={name} className="label">
+      <label className="label" htmlFor={name}>
         {label}
       </label>
-      <select id={name} name={name} className="input">
-        <option value="">Select…</option>
+      <select id={name} name={name} className="input" defaultValue="">
+        <option value="" disabled>
+          {placeholder}
+        </option>
         {options.map((o) => (
           <option key={o} value={o}>
             {o}

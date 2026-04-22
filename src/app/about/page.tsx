@@ -2,28 +2,34 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/site/page-hero";
 import { about, stats } from "@/lib/data/about";
 import { getLocale } from "@/lib/locale";
+import { getDict } from "@/lib/i18n";
 import { FinalCta } from "@/components/home/final-cta";
 import { TeamPreview } from "@/components/home/team-preview";
 import { ProcessSection } from "@/components/home/process";
 
-export const metadata: Metadata = {
-  title: "About",
-  description:
-    "Helpers Technologies is a Giza-based digital studio combining engineering, design, and AI automation to turn digital products into repeatable revenue.",
-  alternates: { canonical: "/about" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const t = getDict(locale).meta.about;
+  return {
+    title: t.title,
+    description: t.description,
+    alternates: { canonical: "/about" },
+    openGraph: { title: t.title, description: t.description },
+  };
+}
 
 export default async function AboutPage() {
   const locale = await getLocale();
   const isAr = locale === "ar";
+  const t = getDict(locale);
 
   return (
     <>
       <PageHero
-        eyebrow="About Helpers Technologies"
+        eyebrow={t.about.eyebrow}
         title={
           <>
-            We build engines, <span className="text-gradient">not just showrooms.</span>
+            {t.about.titleA} <span className="text-gradient">{t.about.titleB}</span>
           </>
         }
         description={isAr ? about.story_ar : about.story}
@@ -45,15 +51,15 @@ export default async function AboutPage() {
       <section className="py-16 md:py-24">
         <div className="container-app grid gap-8 md:grid-cols-2">
           <div className="surface p-8">
-            <span className="eyebrow mb-3">Mission</span>
-            <h2 className="heading-md text-white">What we do</h2>
+            <span className="eyebrow mb-3">{t.about.missionEyebrow}</span>
+            <h2 className="heading-md text-white">{t.about.missionHeading}</h2>
             <p className="mt-4 text-slate-300 leading-relaxed">
               {isAr ? about.mission_ar : about.mission}
             </p>
           </div>
           <div className="surface p-8">
-            <span className="eyebrow mb-3">Vision</span>
-            <h2 className="heading-md text-white">Where we&apos;re going</h2>
+            <span className="eyebrow mb-3">{t.about.visionEyebrow}</span>
+            <h2 className="heading-md text-white">{t.about.visionHeading}</h2>
             <p className="mt-4 text-slate-300 leading-relaxed">
               {isAr ? about.vision_ar : about.vision}
             </p>
@@ -64,8 +70,8 @@ export default async function AboutPage() {
       <section className="py-16 md:py-24 bg-gradient-to-b from-transparent via-ink-900/40 to-transparent">
         <div className="container-app">
           <div className="mb-12 max-w-2xl">
-            <span className="eyebrow mb-3">Our values</span>
-            <h2 className="heading-lg text-white">Principles we actually live by.</h2>
+            <span className="eyebrow mb-3">{t.about.valuesEyebrow}</span>
+            <h2 className="heading-lg text-white">{t.about.valuesHeading}</h2>
           </div>
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {about.values.map((v) => (

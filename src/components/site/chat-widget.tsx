@@ -3,17 +3,15 @@
 import { useState, useRef, useEffect } from "react";
 import { Sparkles, X, Send, Loader2 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { getDict, type Locale } from "@/lib/i18n";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
-export function ChatWidget() {
+export function ChatWidget({ locale }: { locale: Locale }) {
+  const t = getDict(locale);
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      role: "assistant",
-      content:
-        "Hi! I'm HelperBot. Ask me anything about our services, team, or how we can help your business grow.",
-    },
+    { role: "assistant", content: t.chat.greeting },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -34,26 +32,20 @@ export function ChatWidget() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: next }),
+        body: JSON.stringify({ messages: next, locale }),
       });
       const data = (await res.json()) as { reply?: string; error?: string };
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content:
-            data.reply ||
-            "I'm having a bit of trouble right now. Please reach out to us on WhatsApp!",
+          content: data.reply || t.chat.fallback,
         },
       ]);
     } catch {
       setMessages((prev) => [
         ...prev,
-        {
-          role: "assistant",
-          content:
-            "Sorry, I'm having trouble connecting. Please try again or reach us on WhatsApp.",
-        },
+        { role: "assistant", content: t.chat.errorNetwork },
       ]);
     } finally {
       setLoading(false);
@@ -64,11 +56,11 @@ export function ChatWidget() {
     <>
       <button
         onClick={() => setOpen(true)}
-        aria-label="Open chat"
+        aria-label={t.a11y.openChat}
         className="fixed bottom-5 right-24 z-40 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white backdrop-blur-xl hover:bg-white/10 rtl:right-auto rtl:left-24"
       >
         <Sparkles className="h-4 w-4 text-brand-300" />
-        <span className="hidden sm:inline">Chat with AI</span>
+        <span className="hidden sm:inline">{t.chat.openLabel}</span>
       </button>
       <AnimatePresence>
         {open ? (
@@ -85,13 +77,13 @@ export function ChatWidget() {
                   <Sparkles className="h-4 w-4 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-white">HelperBot</p>
-                  <p className="text-[11px] text-emerald-400">AI Assistant · Online</p>
+                  <p className="text-sm font-semibold text-white">{t.chat.title}</p>
+                  <p className="text-[11px] text-emerald-400">{t.chat.status}</p>
                 </div>
               </div>
               <button
                 onClick={() => setOpen(false)}
-                aria-label="Close chat"
+                aria-label={t.a11y.closeChat}
                 className="text-slate-400 hover:text-white"
               >
                 <X className="h-4 w-4" />
@@ -123,7 +115,7 @@ export function ChatWidget() {
               {loading ? (
                 <div className="flex items-center gap-2 text-slate-400">
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  thinking…
+                  {t.chat.thinking}
                 </div>
               ) : null}
             </div>
@@ -138,15 +130,15 @@ export function ChatWidget() {
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about our services…"
+                placeholder={t.chat.placeholder}
                 className="input py-2 text-sm"
-                aria-label="Message"
+                aria-label={t.a11y.messageInput}
               />
               <button
                 type="submit"
                 disabled={loading || !input.trim()}
                 className="btn-primary px-3 py-2"
-                aria-label="Send message"
+                aria-label={t.a11y.sendMessage}
               >
                 <Send className="h-4 w-4" />
               </button>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo } from "./logo";
 import { site } from "@/lib/site";
 import { MapPin, Mail, Phone, Linkedin, Facebook } from "lucide-react";
-import { getDict, type Locale } from "@/lib/i18n";
+import { formatTemplate, getDict, type Locale } from "@/lib/i18n";
 
 // Computed once at module load so server render and the client bundle both
 // use the same value — avoids a rare hydration mismatch at year-boundary
@@ -12,6 +12,21 @@ const FOOTER_YEAR = new Date().getFullYear();
 export function Footer({ locale }: { locale: Locale }) {
   const t = getDict(locale);
   const year = FOOTER_YEAR;
+
+  const navItems = [
+    { href: "/", label: t.nav.home },
+    { href: "/about", label: t.nav.about },
+    { href: "/services", label: t.nav.services },
+    { href: "/projects", label: t.nav.projects },
+    { href: "/team", label: t.nav.team },
+    { href: "/faq", label: t.nav.faq },
+    { href: "/contact", label: t.nav.contact },
+  ];
+
+  const legalItems = [
+    { href: "/privacy", label: t.nav.privacy },
+    { href: "/terms", label: t.nav.terms },
+  ];
 
   return (
     <footer className="mt-24 border-t border-white/5 bg-ink-950/70">
@@ -36,7 +51,7 @@ export function Footer({ locale }: { locale: Locale }) {
                 <Phone className="h-4 w-4 text-brand-300" /> {site.phone}
               </a>
               <div className="flex items-center gap-2 text-slate-400">
-                <MapPin className="h-4 w-4 text-brand-300" /> {site.location}
+                <MapPin className="h-4 w-4 text-brand-300" /> {t.contact.location}
               </div>
             </div>
             <div className="flex items-center gap-2 pt-2">
@@ -44,7 +59,7 @@ export function Footer({ locale }: { locale: Locale }) {
                 href={site.social.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="LinkedIn"
+                aria-label={t.a11y.linkedin}
                 className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 hover:text-white hover:bg-white/10"
               >
                 <Linkedin className="h-4 w-4" />
@@ -53,7 +68,7 @@ export function Footer({ locale }: { locale: Locale }) {
                 href={site.social.facebook}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="Facebook"
+                aria-label={t.a11y.facebook}
                 className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 hover:text-white hover:bg-white/10"
               >
                 <Facebook className="h-4 w-4" />
@@ -64,10 +79,10 @@ export function Footer({ locale }: { locale: Locale }) {
           <div className="lg:col-span-7 grid grid-cols-2 gap-8 sm:grid-cols-3">
             <div>
               <h4 className="mb-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                Explore
+                {t.footer.explore}
               </h4>
               <ul className="space-y-2 text-sm">
-                {site.nav.map((item) => (
+                {navItems.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
@@ -81,37 +96,24 @@ export function Footer({ locale }: { locale: Locale }) {
             </div>
             <div>
               <h4 className="mb-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                Services
+                {t.footer.servicesTitle}
               </h4>
               <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/services" className="text-slate-300 hover:text-white">
-                    Custom Web Development
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/services" className="text-slate-300 hover:text-white">
-                    Mobile Apps
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/services" className="text-slate-300 hover:text-white">
-                    AI & Automation
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/services" className="text-slate-300 hover:text-white">
-                    Digital Growth
-                  </Link>
-                </li>
+                {t.footer.servicesLinks.map((label) => (
+                  <li key={label}>
+                    <Link href="/services" className="text-slate-300 hover:text-white">
+                      {label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
             <div>
               <h4 className="mb-4 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                Legal
+                {t.footer.legalTitle}
               </h4>
               <ul className="space-y-2 text-sm">
-                {site.legal.map((item) => (
+                {legalItems.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
@@ -123,7 +125,7 @@ export function Footer({ locale }: { locale: Locale }) {
                 ))}
                 <li>
                   <Link href="/careers" className="text-slate-300 hover:text-white">
-                    Careers
+                    {t.nav.careers}
                   </Link>
                 </li>
               </ul>
@@ -132,8 +134,8 @@ export function Footer({ locale }: { locale: Locale }) {
         </div>
 
         <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-white/5 pt-6 text-xs text-slate-500 sm:flex-row sm:items-center">
-          <p>{t.footer.copyright.replace("{year}", String(year))}</p>
-          <p>Crafted in Giza · Shipped worldwide.</p>
+          <p>{formatTemplate(t.footer.copyright, { year })}</p>
+          <p>{t.footer.crafted}</p>
         </div>
       </div>
     </footer>

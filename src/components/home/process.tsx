@@ -3,19 +3,19 @@
 import { motion } from "framer-motion";
 import { processSteps } from "@/lib/data/process";
 import { SectionHeading } from "@/components/site/section";
-import { getDict, type Locale } from "@/lib/i18n";
+import { formatTemplate, getDict, type Locale } from "@/lib/i18n";
 
 export function ProcessSection({ locale }: { locale: Locale }) {
-  const t = getDict(locale).sections;
+  const t = getDict(locale);
   const isAr = locale === "ar";
 
   return (
     <section className="py-20 md:py-28">
       <div className="container-app">
         <SectionHeading
-          eyebrow={t.process}
-          title={t.processHeading}
-          description="No mystery. No 'creative chaos'. Every engagement runs through the same disciplined four-stage process — tuned for speed and measurable outcomes."
+          eyebrow={t.sections.process}
+          title={t.sections.processHeading}
+          description={t.sections.processDescription}
         />
 
         <ol className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
@@ -33,7 +33,10 @@ export function ProcessSection({ locale }: { locale: Locale }) {
                   {step.number}
                 </span>
                 <span className="chip">
-                  Step {i + 1} of {processSteps.length}
+                  {formatTemplate(t.process.stepLabel, {
+                    n: i + 1,
+                    total: processSteps.length,
+                  })}
                 </span>
               </div>
               <h3 className="text-lg font-semibold text-white">

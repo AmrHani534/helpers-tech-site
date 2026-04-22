@@ -8,32 +8,12 @@ import {
   Send,
   Upload,
 } from "lucide-react";
-
-const roles = [
-  "Frontend Engineer",
-  "Backend Engineer",
-  "Full-Stack Engineer",
-  "Mobile Engineer",
-  "Product Designer",
-  "AI / ML Engineer",
-  "Growth / Marketing",
-  "Project Manager",
-  "Internship",
-  "Other",
-];
-
-const experienceOptions = [
-  "Student / Internship",
-  "0–1 years",
-  "1–3 years",
-  "3–5 years",
-  "5–8 years",
-  "8+ years",
-];
+import { getDict, type Locale } from "@/lib/i18n";
 
 type State = "idle" | "loading" | "success" | "error";
 
-export function ApplicationForm() {
+export function ApplicationForm({ locale }: { locale: Locale }) {
+  const t = getDict(locale).careerForm;
   const [state, setState] = useState<State>("idle");
   const [error, setError] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string>("");
@@ -51,7 +31,7 @@ export function ApplicationForm() {
       });
       const data = (await res.json()) as { ok: boolean; error?: string };
       if (!res.ok || !data.ok) {
-        setError(data.error ?? "Something went wrong. Please try again.");
+        setError(data.error ?? t.errorGeneric);
         setState("error");
         return;
       }
@@ -59,7 +39,7 @@ export function ApplicationForm() {
       form.reset();
       setFileName("");
     } catch {
-      setError("Network error. Please try again.");
+      setError(t.errorNetwork);
       setState("error");
     }
   };
@@ -70,17 +50,14 @@ export function ApplicationForm() {
         <div className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400">
           <CheckCircle2 className="h-7 w-7" />
         </div>
-        <h3 className="mt-5 heading-md text-white">Application received.</h3>
-        <p className="mt-2 max-w-md text-sm text-slate-400">
-          Thanks for applying. We read every application ourselves — if there&apos;s
-          a fit, you&apos;ll hear back within a week.
-        </p>
+        <h3 className="mt-5 heading-md text-white">{t.successHeading}</h3>
+        <p className="mt-2 max-w-md text-sm text-slate-400">{t.successBody}</p>
         <button
           onClick={() => setState("idle")}
           className="btn-secondary mt-8"
           type="button"
         >
-          Submit another
+          {t.submitAnother}
         </button>
       </div>
     );
@@ -89,52 +66,68 @@ export function ApplicationForm() {
   return (
     <form onSubmit={onSubmit} className="space-y-5" noValidate>
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="heading-md text-white">Apply to join the team</h2>
-        <span className="text-xs text-slate-500">* required</span>
+        <h2 className="heading-md text-white">{t.heading}</h2>
+        <span className="text-xs text-slate-500">{t.required}</span>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <Field label="Full name *" name="full_name" required placeholder="Jane Doe" />
         <Field
-          label="Email *"
+          label={t.fields.fullName}
+          name="full_name"
+          required
+          placeholder={t.placeholders.fullName}
+        />
+        <Field
+          label={t.fields.email}
           name="email"
           type="email"
           required
-          placeholder="you@example.com"
+          placeholder={t.placeholders.email}
         />
         <Field
-          label="Phone / WhatsApp"
+          label={t.fields.phone}
           name="phone"
-          placeholder="+20 111 844 5625"
+          placeholder={t.placeholders.phone}
         />
-        <Field label="Location" name="location" placeholder="Cairo, Egypt" />
+        <Field
+          label={t.fields.location}
+          name="location"
+          placeholder={t.placeholders.location}
+        />
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <Select label="Role applying for *" name="role" options={roles} required />
         <Select
-          label="Years of experience"
+          label={t.fields.role}
+          name="role"
+          options={t.options.roles}
+          required
+          placeholder={t.selectPlaceholder}
+        />
+        <Select
+          label={t.fields.experienceYears}
           name="experience_years"
-          options={experienceOptions}
+          options={t.options.experience}
+          placeholder={t.selectPlaceholder}
         />
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         <Field
-          label="LinkedIn"
+          label={t.fields.linkedin}
           name="linkedin"
-          placeholder="https://linkedin.com/in/…"
+          placeholder={t.placeholders.linkedin}
         />
         <Field
-          label="Portfolio / GitHub"
+          label={t.fields.portfolio}
           name="portfolio"
-          placeholder="https://github.com/…"
+          placeholder={t.placeholders.portfolio}
         />
       </div>
 
       <div>
         <label className="label" htmlFor="cover_letter">
-          Cover letter / message *
+          {t.fields.coverLetter}
         </label>
         <textarea
           id="cover_letter"
@@ -142,13 +135,13 @@ export function ApplicationForm() {
           required
           rows={6}
           className="input resize-y"
-          placeholder="Why do you want to join Helpers Technologies? Link to a project you're proud of."
+          placeholder={t.placeholders.coverLetter}
         />
       </div>
 
       <div>
         <label className="label" htmlFor="cv">
-          CV / Résumé (PDF, DOC, DOCX — max 6 MB)
+          {t.cv.label}
         </label>
         <label
           htmlFor="cv"
@@ -156,9 +149,9 @@ export function ApplicationForm() {
         >
           <span className="flex items-center gap-2 truncate">
             <Upload className="h-4 w-4 text-brand-300" />
-            {fileName || "Click to upload your CV"}
+            {fileName || t.cv.click}
           </span>
-          <span className="text-xs text-slate-500">Optional</span>
+          <span className="text-xs text-slate-500">{t.cv.optional}</span>
         </label>
         <input
           id="cv"
@@ -178,9 +171,7 @@ export function ApplicationForm() {
       ) : null}
 
       <div className="flex items-center justify-between gap-4">
-        <p className="text-xs text-slate-500">
-          We read every application. Expect a reply within a week.
-        </p>
+        <p className="text-xs text-slate-500">{t.replyNote}</p>
         <button
           type="submit"
           disabled={state === "loading"}
@@ -189,11 +180,11 @@ export function ApplicationForm() {
           {state === "loading" ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />
-              Sending…
+              {t.sending}
             </>
           ) : (
             <>
-              Submit application <Send className="h-4 w-4" />
+              {t.cta} <Send className="h-4 w-4" />
             </>
           )}
         </button>
@@ -237,11 +228,13 @@ function Select({
   name,
   options,
   required,
+  placeholder,
 }: {
   label: string;
   name: string;
-  options: string[];
+  options: readonly string[];
   required?: boolean;
+  placeholder: string;
 }) {
   return (
     <div>
@@ -250,7 +243,7 @@ function Select({
       </label>
       <select id={name} name={name} required={required} className="input" defaultValue="">
         <option value="" disabled>
-          Select…
+          {placeholder}
         </option>
         {options.map((o) => (
           <option key={o} value={o}>

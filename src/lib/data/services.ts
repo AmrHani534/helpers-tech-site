@@ -16,7 +16,9 @@ export type Service = {
   description: string;
   description_ar: string;
   deliverables: string[];
+  deliverables_ar: string[];
   features: string[];
+  features_ar: string[];
   accent: string;
 };
 
@@ -38,10 +40,21 @@ export const services: Service[] = [
       "Internal tools & dashboards",
       "Headless CMS integrations",
     ],
+    deliverables_ar: [
+      "مواقع تسويقية وصفحات هبوط",
+      "منصات تجارة إلكترونية",
+      "أدوات داخلية ولوحات تحكم",
+      "تكامل أنظمة إدارة محتوى Headless",
+    ],
     features: [
       "Core Web Vitals-optimized",
       "Accessible by default (WCAG AA)",
       "SEO & analytics built-in",
+    ],
+    features_ar: [
+      "محسّنة لمقاييس Core Web Vitals",
+      "وصولية بمعايير WCAG AA افتراضيًا",
+      "تحسين محركات بحث وتحليلات مدمجة",
     ],
     accent: "from-brand-500/30 to-transparent",
   },
@@ -62,10 +75,21 @@ export const services: Service[] = [
       "Payment & auth integrations",
       "App Store & Play Store launch",
     ],
+    deliverables_ar: [
+      "تطبيقات React Native و Flutter",
+      "إشعارات فورية وتحليلات",
+      "تكامل الدفع والمصادقة",
+      "إطلاق على متجري Apple و Google",
+    ],
     features: [
       "Offline-first architecture",
       "Crash & performance monitoring",
       "Release pipeline set up for you",
+    ],
+    features_ar: [
+      "بنية تعمل دون اتصال",
+      "مراقبة الأعطال والأداء",
+      "خط إصدار جاهز للنشر",
     ],
     accent: "from-accent-500/30 to-transparent",
   },
@@ -86,10 +110,21 @@ export const services: Service[] = [
       "Custom LLM integrations",
       "Document & data extraction",
     ],
+    deliverables_ar: [
+      "روبوتات ومساعدات ذكاء اصطناعي",
+      "أتمتة المبيعات والدعم",
+      "تكامل مخصص مع النماذج اللغوية",
+      "استخراج بيانات المستندات",
+    ],
     features: [
       "Private data stays private",
       "Measurable hours saved per month",
       "Model-agnostic (Gemini / OpenAI / local)",
+    ],
+    features_ar: [
+      "بياناتك الخاصة تبقى خاصة",
+      "ساعات موفَّرة قابلة للقياس شهريًا",
+      "يعمل مع أي نموذج (Gemini / OpenAI / محلي)",
     ],
     accent: "from-emerald-400/20 to-transparent",
   },
@@ -110,10 +145,21 @@ export const services: Service[] = [
       "Analytics & CRO",
       "SEO & content strategy",
     ],
+    deliverables_ar: [
+      "هوية العلامة والتموضع",
+      "إعداد حملات الأداء",
+      "تحليلات وتحسين معدلات التحويل",
+      "تحسين محركات البحث واستراتيجية المحتوى",
+    ],
     features: [
       "Revenue-focused KPIs",
       "Weekly experimentation cadence",
       "Dashboards you actually read",
+    ],
+    features_ar: [
+      "مؤشرات أداء تركز على الإيرادات",
+      "تجارب أسبوعية منتظمة",
+      "لوحات بيانات تقرأها فعلًا",
     ],
     accent: "from-amber-400/20 to-transparent",
   },

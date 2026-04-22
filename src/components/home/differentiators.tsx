@@ -6,16 +6,16 @@ import { SectionHeading } from "@/components/site/section";
 import { getDict, type Locale } from "@/lib/i18n";
 
 export function Differentiators({ locale }: { locale: Locale }) {
-  const t = getDict(locale).sections;
+  const t = getDict(locale);
   const isAr = locale === "ar";
 
   return (
     <section className="py-20 md:py-28 bg-gradient-to-b from-transparent via-ink-900/40 to-transparent">
       <div className="container-app">
         <SectionHeading
-          eyebrow={t.differentiators}
-          title={t.differentiatorsHeading}
-          description="We're not the cheapest. We're the team that treats your business like our own — and refuses to ship features that don't move the needle."
+          eyebrow={t.sections.differentiators}
+          title={t.sections.differentiatorsHeading}
+          description={t.sections.differentiatorsDescription}
         />
 
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">

@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { getLocale, isRtl } from "@/lib/locale";
+import { getDict } from "@/lib/i18n";
 import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import { WhatsAppButton } from "@/components/site/whatsapp-button";
@@ -22,40 +23,46 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["400", "500", "600", "700"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
-  title: {
-    default: `${site.name} — ${site.tagline}`,
-    template: `%s · ${site.name}`,
-  },
-  description: site.description,
-  keywords: [
-    "web development Egypt",
-    "mobile app development Cairo",
-    "AI automation",
-    "Next.js agency",
-    "Helpers Technologies",
-    "digital agency Giza",
-  ],
-  authors: [{ name: site.name, url: site.url }],
-  openGraph: {
-    type: "website",
-    url: site.url,
-    title: `${site.name} — ${site.tagline}`,
-    description: site.description,
-    siteName: site.name,
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${site.name} — ${site.tagline}`,
-    description: site.description,
-  },
-  icons: {
-    icon: "/images/logo.png",
-    apple: "/images/logo.png",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const t = getDict(locale);
+  const title = t.meta.home.title;
+  const description = t.meta.home.description;
+  return {
+    metadataBase: new URL(site.url),
+    title: {
+      default: title,
+      template: `%s · ${site.name}`,
+    },
+    description,
+    keywords: [
+      "web development Egypt",
+      "mobile app development Cairo",
+      "AI automation",
+      "Next.js agency",
+      "Helpers Technologies",
+      "digital agency Giza",
+    ],
+    authors: [{ name: site.name, url: site.url }],
+    openGraph: {
+      type: "website",
+      url: site.url,
+      title,
+      description,
+      siteName: site.name,
+      locale: locale === "ar" ? "ar_EG" : "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+    icons: {
+      icon: "/images/logo.png",
+      apple: "/images/logo.png",
+    },
+  };
+}
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -70,6 +77,7 @@ export default async function RootLayout({
 }) {
   const locale = await getLocale();
   const rtl = isRtl(locale);
+  const t = getDict(locale);
   const hasChatKey = Boolean(process.env.GOOGLE_GENERATIVE_AI_API_KEY);
 
   // Admin routes use their own clean chrome — suppress the public navbar,
@@ -100,15 +108,15 @@ export default async function RootLayout({
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-md focus:bg-brand-500 focus:px-3 focus:py-2 focus:text-white"
         >
-          Skip to content
+          {t.a11y.skipToContent}
         </a>
         {!isAdmin ? <Navbar locale={locale} /> : null}
         <main id="main" className="flex-1">
           {children}
         </main>
         {!isAdmin ? <Footer locale={locale} /> : null}
-        {!isAdmin ? <WhatsAppButton /> : null}
-        {!isAdmin && hasChatKey ? <ChatWidget /> : null}
+        {!isAdmin ? <WhatsAppButton locale={locale} /> : null}
+        {!isAdmin && hasChatKey ? <ChatWidget locale={locale} /> : null}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

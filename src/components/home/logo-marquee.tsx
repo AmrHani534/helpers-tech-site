@@ -1,5 +1,7 @@
 "use client";
 
+import { getDict, type Locale } from "@/lib/i18n";
+
 const logos = [
   "Premium Hub",
   "Flixs Store",
@@ -10,12 +12,13 @@ const logos = [
   "TechRetail Egypt",
 ];
 
-export function LogoMarquee() {
+export function LogoMarquee({ locale }: { locale: Locale }) {
+  const t = getDict(locale).trustedBy;
   return (
-    <section aria-label="Trusted by" className="py-10 border-y border-white/5 bg-ink-900/30">
+    <section aria-label={t.aria} className="py-10 border-y border-white/5 bg-ink-900/30">
       <div className="container-app">
         <p className="text-center text-xs font-medium uppercase tracking-[0.2em] text-slate-500">
-          Trusted by ambitious teams in Egypt and beyond
+          {t.caption}
         </p>
         <div className="mt-6 overflow-hidden">
           <div className="flex w-max items-center gap-14 animate-marquee whitespace-nowrap opacity-70">

@@ -2,18 +2,25 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/site/page-hero";
 import { getFaqs } from "@/lib/repo";
 import { getLocale } from "@/lib/locale";
+import { getDict } from "@/lib/i18n";
 import { FaqList } from "@/components/faq/faq-list";
 import { FinalCta } from "@/components/home/final-cta";
 
-export const metadata: Metadata = {
-  title: "FAQ",
-  description:
-    "Straight answers on pricing, timelines, ownership, support and bilingual delivery — everything founders ask before signing with Helpers Technologies.",
-  alternates: { canonical: "/faq" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const t = getDict(locale).meta.faq;
+  return {
+    title: t.title,
+    description: t.description,
+    alternates: { canonical: "/faq" },
+    openGraph: { title: t.title, description: t.description },
+  };
+}
 
 export default async function FaqPage() {
   const [faqs, locale] = await Promise.all([getFaqs(), getLocale()]);
+  const isAr = locale === "ar";
+  const t = getDict(locale);
 
   const byCategory = faqs.reduce<Record<string, typeof faqs>>((acc, f) => {
     const key = f.category ?? "General";
@@ -25,13 +32,15 @@ export default async function FaqPage() {
   return (
     <>
       <PageHero
-        eyebrow="Frequently asked"
+        eyebrow={t.faq.eyebrow}
         title={
           <>
-            Answers <span className="text-gradient">before you ask</span>.
+            {t.faq.titleA}{" "}
+            <span className="text-gradient">{t.faq.titleHighlight}</span>
+            {t.faq.titleC}
           </>
         }
-        description="Pricing, timelines, ownership — written plainly, no fluff."
+        description={t.faq.description}
       />
 
       <section className="pb-20">
@@ -39,7 +48,7 @@ export default async function FaqPage() {
           {Object.entries(byCategory).map(([category, items]) => (
             <div key={category}>
               <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-400">
-                {category}
+                {t.faq.categories[category] ?? category}
               </h2>
               <FaqList faqs={items} locale={locale} />
             </div>
@@ -57,8 +66,11 @@ export default async function FaqPage() {
             "@type": "FAQPage",
             mainEntity: faqs.map((f) => ({
               "@type": "Question",
-              name: f.question,
-              acceptedAnswer: { "@type": "Answer", text: f.answer },
+              name: isAr && f.question_ar ? f.question_ar : f.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: isAr && f.answer_ar ? f.answer_ar : f.answer,
+              },
             })),
           }),
         }}
