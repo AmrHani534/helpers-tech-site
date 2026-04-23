@@ -47,8 +47,9 @@ export async function GET(request: NextRequest) {
 
   if (error) {
     console.error("[auth/callback] Code exchange failed:", error.message);
-    // Redirect to login with an error hint
-    return NextResponse.redirect(`${origin}/admin/login?error=auth_callback_failed`);
+    // Redirect to login with the specific error message for debugging
+    const errorMessage = encodeURIComponent(error.message);
+    return NextResponse.redirect(`${origin}/admin/login?error=${errorMessage}`);
   }
 
   return response;
