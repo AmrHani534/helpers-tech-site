@@ -21,6 +21,17 @@ export async function middleware(request: NextRequest) {
   const forwardedHeaders = new Headers(request.headers);
   forwardedHeaders.set("x-pathname", pathname);
 
+  // If a Supabase auth code arrives on any page (e.g. /admin after email
+  // confirmation), redirect it to /auth/callback for proper PKCE exchange.
+  const code = request.nextUrl.searchParams.get("code");
+  if (code && pathname !== "/auth/callback") {
+    const callbackUrl = request.nextUrl.clone();
+    callbackUrl.pathname = "/auth/callback";
+    // Preserve the original destination so the callback can redirect back.
+    callbackUrl.searchParams.set("next", pathname);
+    return NextResponse.redirect(callbackUrl);
+  }
+
   if (!url || !anonKey) {
     return NextResponse.next({ request: { headers: forwardedHeaders } });
   }
