@@ -14,12 +14,16 @@ type CookieToSet = { name: string; value: string; options?: CookieOptions };
  * We exchange the code for a session then redirect to the desired page.
  */
 export async function GET(request: NextRequest) {
-  const { searchParams, origin } = request.nextUrl;
+  const { searchParams } = request.nextUrl;
   const code = searchParams.get("code");
   const next = searchParams.get("next") ?? "/admin";
 
+  // Use the host header or NEXT_PUBLIC_SITE_URL to get the public origin
+  const host = request.headers.get("host");
+  const protocol = request.headers.get("x-forwarded-proto") || "http";
+  const origin = host ? `${protocol}://${host}` : request.nextUrl.origin;
+
   if (!code || !isSupabaseConfigured()) {
-    // No code or Supabase not configured — redirect home
     return NextResponse.redirect(`${origin}/`);
   }
 
