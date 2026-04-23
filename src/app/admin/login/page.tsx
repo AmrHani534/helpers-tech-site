@@ -5,6 +5,22 @@ import { useRouter } from "next/navigation";
 import { Loader2, LogIn, Mail, AlertCircle, CheckCircle2 } from "lucide-react";
 import { getSupabaseBrowser } from "@/lib/supabase/client";
 
+function getAuthRedirectBase() {
+  const fallbackOrigin =
+    typeof window !== "undefined" ? window.location.origin : "http://localhost:3000";
+
+  for (const candidate of [process.env.NEXT_PUBLIC_SITE_URL, fallbackOrigin]) {
+    if (!candidate) continue;
+    try {
+      return new URL(candidate).origin;
+    } catch {
+      continue;
+    }
+  }
+
+  return fallbackOrigin;
+}
+
 export default function AdminLoginPage() {
   const router = useRouter();
   const [mode, setMode] = useState<"password" | "magic">("password");
@@ -34,10 +50,11 @@ export default function AdminLoginPage() {
         router.push("/admin");
         router.refresh();
       } else {
+        const redirectBase = getAuthRedirectBase();
         const { error } = await supabase.auth.signInWithOtp({
           email,
           options: {
-            emailRedirectTo: `${window.location.origin}/auth/callback?next=/admin`,
+            emailRedirectTo: `${redirectBase}/auth/callback?next=/admin`,
           },
         });
         if (error) throw error;

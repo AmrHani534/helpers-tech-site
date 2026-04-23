@@ -37,7 +37,11 @@ The public site will render from the built-in seed data **even without a Supabas
    - `anon public` key → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - `service_role` key → `SUPABASE_SERVICE_ROLE_KEY` (**server-only — never expose**)
 4. Paste these into `.env.local`.
-5. Run the seed:
+5. In **Authentication -> URL Configuration**, set:
+   - `Site URL` -> `https://helpers-tech.com`
+   - `Redirect URLs` -> `https://helpers-tech.com/auth/callback`
+   - Add `http://localhost:3000/**` too if you want local magic-link testing
+6. Run the seed:
    ```bash
    npm run seed
    ```
