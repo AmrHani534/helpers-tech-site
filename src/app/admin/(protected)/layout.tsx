@@ -48,14 +48,8 @@ export default async function AdminProtectedLayout({
           <div className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-rose-500/15 text-rose-300">
             <ShieldAlert className="h-6 w-6" />
           </div>
-          <h1 className="mt-5 heading-md text-white">Not authorized</h1>
-          <p className="mt-3 text-sm text-slate-400">
-            Your account <span className="text-white">{user?.email}</span> is not in
-            the admin allowlist. Add it to <code className="text-amber-300">ADMIN_EMAILS</code>{" "}
-            to gain access.
-          </p>
-          <p className="mt-2 text-xs text-slate-500">
-            Current allowlist: {getAdminEmails().join(", ") || "(empty)"}
+          <p className="mt-5 text-lg text-white">
+            Your account <span className="font-semibold">{user?.email}</span> is not admin
           </p>
           <form action="/admin/logout" method="post">
             <button className="btn-secondary mt-6" type="submit">
