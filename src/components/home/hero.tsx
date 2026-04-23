@@ -7,6 +7,7 @@ import { getDict, type Locale } from "@/lib/i18n";
 
 export function Hero({ locale }: { locale: Locale }) {
   const t = getDict(locale);
+  const isAr = locale === "ar";
 
   return (
     <section className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28">
@@ -30,8 +31,10 @@ export function Hero({ locale }: { locale: Locale }) {
           </div>
 
           <h1 className="heading-xl text-white">
-            <span className="block">{t.hero.titleA}</span>
-            <span className="text-gradient block">{t.hero.titleB}</span>
+            <span className={isAr ? "inline" : "block"}>{t.hero.titleA}</span>
+            <span className={`text-gradient ${isAr ? "inline mr-3" : "block"}`}>
+              {t.hero.titleB}
+            </span>
           </h1>
 
           <p className="mt-6 max-w-2xl text-base md:text-lg leading-relaxed text-slate-300">
