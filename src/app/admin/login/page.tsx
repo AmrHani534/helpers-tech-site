@@ -57,9 +57,7 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md px-5">
         <div className="surface p-8 md:p-10">
           <h1 className="heading-md text-white">Admin sign in</h1>
-          <p className="mt-2 text-sm text-slate-400">
-            Use the Supabase account registered to the admin email.
-          </p>
+
 
           <div className="mt-6 flex rounded-full border border-white/10 p-1 text-xs font-medium">
             {(["password", "magic"] as const).map((m) => (
@@ -154,10 +152,7 @@ export default function AdminLoginPage() {
             </form>
           )}
 
-          <p className="mt-6 text-center text-xs text-slate-500">
-            Need an admin account? Create one in Supabase → Authentication, then
-            add the email to <code className="text-amber-300">ADMIN_EMAILS</code>.
-          </p>
+
         </div>
       </div>
     </div>
