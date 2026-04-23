@@ -23,6 +23,11 @@
     background-attachment: fixed;
   }
 
+  html[lang="ar"] body,
+  html[lang="ar"] .font-display {
+    font-family: var(--font-arabic), system-ui, sans-serif;
+  }
+
   ::selection {
     background: rgba(79, 124, 255, 0.35);
     color: #fff;

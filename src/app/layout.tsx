@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Cairo, Inter, Space_Grotesk } from "next/font/google";
 import { headers } from "next/headers";
 import "./globals.css";
 import { site } from "@/lib/site";
@@ -19,6 +19,13 @@ const inter = Inter({
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-display",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
+
+const cairo = Cairo({
+  subsets: ["arabic", "latin"],
+  variable: "--font-arabic",
   display: "swap",
   weight: ["400", "500", "600", "700"],
 });
@@ -100,7 +107,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={rtl ? "rtl" : "ltr"}
-      className={`${inter.variable} ${spaceGrotesk.variable}`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${cairo.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen flex flex-col" suppressHydrationWarning>

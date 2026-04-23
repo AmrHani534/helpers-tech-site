@@ -100,7 +100,27 @@ Contact-form submissions will email you in addition to being stored in Supabase.
 
 Set `GOOGLE_GENERATIVE_AI_API_KEY` (Gemini key) to enable the floating chat widget. Without the key, the widget is hidden — the site never breaks.
 
-## 10. Deploying to Vercel
+## 10. Deploying to Hostinger
+
+Hostinger supports Next.js on its managed Node.js Apps product. For this repo, the smoothest path is:
+
+1. Push this repo to GitHub.
+2. In Hostinger hPanel, go to `Websites -> Add Website -> Node.js Apps -> Import Git Repository`.
+3. Select this repository and the branch you want to deploy.
+4. Use Node.js `20.x`. This repo declares it in `package.json` via `engines.node`, which helps Hostinger auto-detect the correct version.
+5. Confirm the detected commands:
+   Build command: `npm run build`
+   Start command: `npm run start`
+6. Add your environment variables before deploying:
+   Required: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `ADMIN_EMAILS`
+   Optional: `RESEND_API_KEY`, `CONTACT_NOTIFICATION_TO`, `CONTACT_NOTIFICATION_FROM`, `GOOGLE_GENERATIVE_AI_API_KEY`
+7. Deploy, test the temporary Hostinger URL, then connect your custom domain.
+
+Set `NEXT_PUBLIC_SITE_URL` to your final Hostinger domain so metadata, canonical URLs, and the sitemap point to the right origin.
+
+If you prefer ZIP upload instead of GitHub, upload the project files without `node_modules` and let Hostinger build the app on the server.
+
+## 11. Deploying to Vercel
 
 1. Push this repo to GitHub.
 2. Go to [vercel.com/new](https://vercel.com/new) and import the repo.
@@ -109,7 +129,7 @@ Set `GOOGLE_GENERATIVE_AI_API_KEY` (Gemini key) to enable the floating chat widg
 
 Set your custom domain in **Vercel → Project → Domains** and update `NEXT_PUBLIC_SITE_URL` so metadata and sitemap point to the right origin.
 
-## 11. Scripts
+## 12. Scripts
 
 | Command            | Purpose                                 |
 |--------------------|-----------------------------------------|
@@ -120,7 +140,7 @@ Set your custom domain in **Vercel → Project → Domains** and update `NEXT_PU
 | `npm run typecheck`| TypeScript strict check                 |
 | `npm run seed`     | Seed Supabase with Helpers content      |
 
-## 12. Tech
+## 13. Tech
 
 - Next.js 15 (App Router, Server Components, server actions)
 - TypeScript strict mode
@@ -130,7 +150,7 @@ Set your custom domain in **Vercel → Project → Domains** and update `NEXT_PU
 - Zod for server-side validation
 - Lucide for icons
 
-## 13. Placeholders to replace
+## 14. Placeholders to replace
 
 When you're ready, replace:
 
