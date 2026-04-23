@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Confirm Your Signup — Helpers Technologies</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+  <style>
+    /* ─── Reset ─────────────────────────────────────────── */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse; }
+    img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }
+    a { text-decoration: none; }
+
+    /* ─── Base ───────────────────────────────────────────── */
+    body {
+      background-color: #0a0a10;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      color: #e2e8f0;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+
+    /* ─── Wrapper ────────────────────────────────────────── */
+    .email-wrapper {
+      background-color: #0a0a10;
+      padding: 48px 16px;
+      width: 100%;
+    }
+
+    /* ─── Card ───────────────────────────────────────────── */
+    .email-card {
+      background: linear-gradient(145deg, #13131f 0%, #0f0f1a 100%);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      border-radius: 20px;
+      max-width: 560px;
+      margin: 0 auto;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(139, 92, 246, 0.08),
+        0 20px 60px rgba(0, 0, 0, 0.6),
+        0 0 80px rgba(139, 92, 246, 0.08);
+    }
+
+    /* ─── Header / Hero ──────────────────────────────────── */
+    .email-header {
+      background: linear-gradient(135deg, #1a0a2e 0%, #16052b 40%, #0d0a1e 100%);
+      padding: 48px 40px 40px;
+      text-align: center;
+      position: relative;
+      border-bottom: 1px solid rgba(139, 92, 246, 0.18);
+    }
+
+    /* Glow orb behind logo */
+    .header-glow {
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .header-glow::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 60%);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    /* Logo circle */
+    .logo-circle {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 50%, #4c1d95 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      box-shadow:
+        0 0 0 3px rgba(139, 92, 246, 0.3),
+        0 0 30px rgba(139, 92, 246, 0.4);
+      position: relative;
+    }
+
+    .logo-initials {
+      font-size: 28px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+
+    /* Brand name */
+    .brand-name {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(139, 92, 246, 0.9);
+      margin-top: 16px;
+      margin-bottom: 24px;
+    }
+
+    .header-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #f1f5f9;
+      line-height: 1.3;
+      letter-spacing: -0.5px;
+    }
+
+    .header-subtitle {
+      font-size: 15px;
+      color: rgba(148, 163, 184, 0.8);
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    /* ─── Body ───────────────────────────────────────────── */
+    .email-body {
+      padding: 40px 40px 32px;
+    }
+
+    .body-text {
+      font-size: 15px;
+      color: #94a3b8;
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    /* ─── CTA Button ─────────────────────────────────────── */
+    .cta-wrapper {
+      text-align: center;
+      margin: 0 0 36px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+      color: #ffffff !important;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      padding: 16px 48px;
+      border-radius: 100px;
+      border: none;
+      box-shadow:
+        0 0 0 1px rgba(139, 92, 246, 0.4),
+        0 8px 30px rgba(109, 40, 217, 0.45),
+        0 0 60px rgba(139, 92, 246, 0.2);
+      text-decoration: none !important;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    /* ─── Divider ────────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.25), transparent);
+      margin: 0 0 28px;
+    }
+
+    /* ─── Link fallback ──────────────────────────────────── */
+    .link-fallback {
+      font-size: 12px;
+      color: #64748b;
+      line-height: 1.7;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .link-fallback a {
+      color: #8b5cf6;
+      word-break: break-all;
+      font-size: 11px;
+    }
+
+    /* ─── Security note ──────────────────────────────────── */
+    .security-note {
+      background: rgba(139, 92, 246, 0.06);
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 28px 0 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .security-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .security-text {
+      font-size: 12px;
+      color: #64748b;
+      line-height: 1.65;
+    }
+
+    .security-text strong {
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────── */
+    .email-footer {
+      background: rgba(0, 0, 0, 0.3);
+      border-top: 1px solid rgba(139, 92, 246, 0.1);
+      padding: 28px 40px;
+      text-align: center;
+    }
+
+    .footer-brand {
+      font-size: 13px;
+      font-weight: 700;
+      color: #8b5cf6;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .footer-tagline {
+      font-size: 11px;
+      color: #475569;
+      margin-bottom: 16px;
+    }
+
+    .footer-links {
+      margin-bottom: 16px;
+    }
+
+    .footer-links a {
+      font-size: 11px;
+      color: #475569;
+      margin: 0 8px;
+    }
+
+    .footer-links a:hover {
+      color: #8b5cf6;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      color: #334155;
+    }
+
+    /* ─── Responsive ─────────────────────────────────────── */
+    @media only screen and (max-width: 600px) {
+      .email-wrapper { padding: 24px 12px; }
+      .email-header { padding: 36px 24px 32px; }
+      .header-title { font-size: 22px; }
+      .email-body { padding: 32px 24px 24px; }
+      .email-footer { padding: 24px; }
+      .cta-button { padding: 14px 36px; font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>
+          <div class="email-card">
+
+            <!-- ── Header ─────────────────────────────── -->
+            <div class="email-header">
+              <div class="header-glow">
+                <div class="logo-circle">
+                  <span class="logo-initials">HT</span>
+                </div>
+              </div>
+              <p class="brand-name">Helpers Technologies</p>
+              <h1 class="header-title">Confirm your signup</h1>
+              <p class="header-subtitle">You're one click away from accessing your account.</p>
+            </div>
+
+            <!-- ── Body ──────────────────────────────── -->
+            <div class="email-body">
+              <p class="body-text">
+                Hey there 👋<br /><br />
+                Welcome to <strong style="color: #e2e8f0;">Helpers Technologies</strong>. We're glad you're here.
+                To activate your account and get started, click the button below to verify your email address.
+              </p>
+
+              <!-- CTA -->
+              <div class="cta-wrapper">
+                <a href="{{ .ConfirmationURL }}" class="cta-button" target="_blank" rel="noopener noreferrer">
+                  ✓ &nbsp;Confirm My Account
+                </a>
+              </div>
+
+              <div class="divider"></div>
+
+              <!-- Link fallback -->
+              <p class="link-fallback">
+                Button not working? Copy and paste this link into your browser:<br />
+                <a href="{{ .ConfirmationURL }}">{{ .ConfirmationURL }}</a>
+              </p>
+
+              <!-- Security note -->
+              <div class="security-note">
+                <span class="security-icon">🔒</span>
+                <p class="security-text">
+                  <strong>This link expires in 24 hours</strong> and can only be used once.
+                  If you didn't create an account with Helpers Technologies, you can safely ignore this email —
+                  no action is needed.
+                </p>
+              </div>
+            </div>
+
+            <!-- ── Footer ────────────────────────────── -->
+            <div class="email-footer">
+              <p class="footer-brand">Helpers Technologies</p>
+              <p class="footer-tagline">Build Digital Products That Actually Sell.</p>
+              <div class="footer-links">
+                <a href="https://helpers-tech.com">Website</a>
+                <a href="https://helpers-tech.com/privacy">Privacy</a>
+                <a href="https://helpers-tech.com/terms">Terms</a>
+                <a href="mailto:info@helpers-tech.com">Contact</a>
+              </div>
+              <p class="footer-copy">© 2025 Helpers Technologies · Giza, Egypt</p>
+            </div>
+
+          </div>
+        </table>
+      </td>
+    </table>
+  </div>
+</body>
+</html>
