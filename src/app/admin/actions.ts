@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { redirect, isRedirectError } from "next/navigation";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getSupabaseAdmin } from "@/lib/supabase/server";
 import { isAdmin } from "@/lib/auth";
@@ -268,7 +268,7 @@ export async function saveSiteSettings(formData: FormData) {
     revalidatePath("/admin/site-settings");
     redirect("/admin/site-settings?saved=1");
   } catch (e) {
-    if (e instanceof Error && e.message === "NEXT_REDIRECT") throw e;
+    if (isRedirectError(e)) throw e;
     const msg = e instanceof Error ? e.message : "Unknown error";
     console.error("saveSiteSettings error:", msg);
     redirect(`/admin/site-settings?error=${encodeURIComponent(msg)}`);

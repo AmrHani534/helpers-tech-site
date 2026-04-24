@@ -9,6 +9,10 @@ function getAdminErrorMessage(error: Error): string {
     return "Your admin session is not authorized. Sign in with an allowed admin email, then try again.";
   }
 
+  if (error.message === "Forbidden" || error.message.includes("permission denied")) {
+    return "Access forbidden. This usually means the SUPABASE_SERVICE_ROLE_KEY is incorrect or missing. Please check your environment variables.";
+  }
+
   if (error.message) return error.message;
 
   return "The admin action failed. Check the server logs for details.";
