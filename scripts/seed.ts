@@ -132,6 +132,7 @@ async function main() {
       answer: f.answer,
       answer_ar: f.answer_ar ?? null,
       category: f.category ?? null,
+      category_ar: f.category_ar ?? null,
       order_index: f.orderIndex,
       published: f.published,
     });

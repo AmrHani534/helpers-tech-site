@@ -673,8 +673,9 @@ const ar: typeof en = {
     titleA: "إجابات",
     titleHighlight: "قبل أن تسأل",
     titleC: ".",
-    description: "الأسعار والجداول الزمنية والملكية — بوضوح ومن دون حشو.",
+    description: "الأسعار والجداول الزمنية والملكية.",
     categories: {
+      Process: "المنهجية",
       Pricing: "الأسعار",
       Timeline: "الجداول الزمنية",
       Ownership: "الملكية",

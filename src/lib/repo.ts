@@ -200,6 +200,7 @@ export async function getFaqs(): Promise<Faq[]> {
     answer: safeString(r.answer),
     answer_ar: safeString(r.answer_ar) || undefined,
     category: safeString(r.category) || undefined,
+    category_ar: safeString(r.category_ar) || undefined,
     orderIndex: safeNum(r.order_index),
     published: safeBool(r.published, true),
   }));

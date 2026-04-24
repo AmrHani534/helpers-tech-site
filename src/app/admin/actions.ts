@@ -198,6 +198,7 @@ export async function saveFaq(formData: FormData) {
     answer: str(formData, "answer"),
     answer_ar: str(formData, "answer_ar") || null,
     category: str(formData, "category") || null,
+    category_ar: str(formData, "category_ar") || null,
     order_index: num(formData, "order_index"),
     published: bool(formData, "published"),
   };

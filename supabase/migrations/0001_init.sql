@@ -99,6 +99,7 @@ create table if not exists public.faqs (
   answer text not null,
   answer_ar text,
   category text,
+  category_ar text,
   order_index int not null default 0,
   published boolean not null default true,
   created_at timestamptz not null default now()

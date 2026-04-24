@@ -9,7 +9,7 @@ export default async function AdminFaqsPage() {
   const { data: faqs = [] } = supabase
     ? await supabase
         .from("faqs")
-        .select("id, question, category, published, order_index")
+        .select("id, question, category, category_ar, published, order_index")
         .order("order_index")
     : { data: [] };
 
@@ -32,7 +32,7 @@ export default async function AdminFaqsPage() {
           rows={(faqs ?? []).map((f) => ({
             id: f.id as string,
             title: f.question as string,
-            subtitle: f.category as string,
+            subtitle: [f.category, f.category_ar].filter(Boolean).join(" / "),
             href: `/admin/faqs/${f.id}`,
             published: f.published as boolean,
           }))}

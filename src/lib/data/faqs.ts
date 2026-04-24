@@ -5,6 +5,7 @@ export type Faq = {
   answer: string;
   answer_ar?: string;
   category?: string;
+  category_ar?: string;
   orderIndex: number;
   published: boolean;
 };
@@ -19,6 +20,7 @@ export const faqs: Faq[] = [
     answer_ar:
       "الشفافية أولًا. باقة الإطلاق تبدأ من $250، وباقة الأعمال من $400. للبرمجيات المخصصة وتطبيقات الجوال نقدّم عرضًا تفصيليًا بعد جلسة استكشاف مجانية.",
     category: "Pricing",
+    category_ar: "الأسعار",
     orderIndex: 1,
     published: true,
   },
@@ -31,6 +33,7 @@ export const faqs: Faq[] = [
     answer_ar:
       "المواقع البسيطة (باقة الإطلاق) تستغرق 3 أيام. المواقع الاحترافية للأعمال 2–3 أسابيع. مشاريع التجارة الإلكترونية أو التطبيقات 4–6 أسابيع عادةً.",
     category: "Timeline",
+    category_ar: "الجداول الزمنية",
     orderIndex: 2,
     published: true,
   },
@@ -43,6 +46,7 @@ export const faqs: Faq[] = [
     answer_ar:
       "نعم 100%. بمجرد سداد الدفعة النهائية تمتلك الكود والدومين وجميع الأصول. لا نؤمن بتقييد العملاء.",
     category: "Ownership",
+    category_ar: "الملكية",
     orderIndex: 3,
     published: true,
   },
@@ -55,6 +59,7 @@ export const faqs: Faq[] = [
     answer_ar:
       "بالتأكيد. لدينا خبرة قوية في تصميم RTL لضمان شعور منصّتك بأنها أصلية للجمهور العربي والمصري.",
     category: "Capabilities",
+    category_ar: "القدرات",
     orderIndex: 4,
     published: true,
   },
@@ -67,6 +72,7 @@ export const faqs: Faq[] = [
     answer_ar:
       "نطلب عادةً دفعة مقدمة 50% لبدء العمل، والـ 50% المتبقية عند التسليم وموافقتك النهائية.",
     category: "Pricing",
+    category_ar: "الأسعار",
     orderIndex: 5,
     published: true,
   },
@@ -79,6 +85,7 @@ export const faqs: Faq[] = [
     answer_ar:
       "نقدّم باقات دعم وصيانة مستمرة (Basic، Growth، Premium) للحفاظ على النظام آمنًا ومحدّثًا. نحن دائمًا على بُعد رسالة واتساب.",
     category: "Support",
+    category_ar: "الدعم",
     orderIndex: 6,
     published: true,
   },

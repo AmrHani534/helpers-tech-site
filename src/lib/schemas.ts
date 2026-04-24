@@ -63,6 +63,7 @@ export const faqSchema = z.object({
   question: z.string().min(3),
   answer: z.string().min(3),
   category: z.string().optional().or(z.literal("")),
+  category_ar: z.string().optional().or(z.literal("")),
   order_index: z.number().default(0),
   published: z.boolean().default(true),
 });

@@ -48,7 +48,9 @@ export default async function FaqPage() {
           {Object.entries(byCategory).map(([category, items]) => (
             <div key={category}>
               <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-400">
-                {t.faq.categories[category] ?? category}
+                {isAr && items[0]?.category_ar
+                  ? items[0].category_ar
+                  : t.faq.categories[category] ?? category}
               </h2>
               <FaqList faqs={items} locale={locale} />
             </div>

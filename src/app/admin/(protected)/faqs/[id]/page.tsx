@@ -25,6 +25,7 @@ export default async function EditFaqPage({
             answer: data.answer as string,
             answer_ar: data.answer_ar as string,
             category: data.category as string,
+            category_ar: data.category_ar as string,
             order_index: data.order_index as number,
             published: data.published as boolean,
           }}

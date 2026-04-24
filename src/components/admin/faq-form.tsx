@@ -9,6 +9,7 @@ type Faq = {
   answer?: string;
   answer_ar?: string;
   category?: string;
+  category_ar?: string;
   order_index?: number;
   published?: boolean;
 };
@@ -37,7 +38,21 @@ export function FaqForm({ faq }: { faq?: Faq }) {
       <Textarea label="Answer (Arabic)" name="answer_ar" defaultValue={faq?.answer_ar} />
 
       <div className="grid gap-4 md:grid-cols-2">
-        <Field label="Category" name="category" defaultValue={faq?.category} placeholder="Pricing / Timeline / ..." />
+        <Field
+          label="Category"
+          name="category"
+          defaultValue={faq?.category}
+          placeholder="Pricing / Timeline / ..."
+        />
+        <Field
+          label="Category (Arabic)"
+          name="category_ar"
+          defaultValue={faq?.category_ar}
+          placeholder="الأسعار / الجداول الزمنية / ..."
+        />
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
         <Field
           label="Order index"
           name="order_index"
