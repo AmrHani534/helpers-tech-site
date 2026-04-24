@@ -15,9 +15,17 @@ export function Hero({
 }) {
   const t = getDict(locale);
   const isAr = locale === "ar";
-  const eyebrow = setting(settings, "hero_eyebrow", t.hero.eyebrow);
-  const title = setting(settings, "hero_title", "");
-  const description = setting(settings, "hero_subtitle", t.hero.description);
+  const eyebrow = setting(
+    settings,
+    isAr ? "hero_eyebrow_ar" : "hero_eyebrow",
+    t.hero.eyebrow,
+  );
+  const title = setting(settings, isAr ? "hero_title_ar" : "hero_title", "");
+  const description = setting(
+    settings,
+    isAr ? "hero_subtitle_ar" : "hero_subtitle",
+    t.hero.description,
+  );
 
   return (
     <section className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28">

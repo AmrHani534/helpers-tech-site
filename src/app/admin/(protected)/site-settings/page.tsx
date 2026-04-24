@@ -5,8 +5,11 @@ import { saveSiteSettings } from "../../actions";
 
 const FIELDS: { key: string; label: string; placeholder?: string }[] = [
   { key: "hero_eyebrow", label: "Hero eyebrow" },
+  { key: "hero_eyebrow_ar", label: "Hero eyebrow (Arabic)" },
   { key: "hero_title", label: "Hero title" },
+  { key: "hero_title_ar", label: "Hero title (Arabic)" },
   { key: "hero_subtitle", label: "Hero subtitle" },
+  { key: "hero_subtitle_ar", label: "Hero subtitle (Arabic)" },
   { key: "email", label: "Contact email" },
   { key: "phone", label: "Phone / WhatsApp" },
   { key: "whatsapp_link", label: "WhatsApp link (https://wa.me/...)" },

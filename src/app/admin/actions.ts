@@ -225,6 +225,29 @@ export async function deleteFaq(formData: FormData) {
   revalidatePath("/admin/faqs");
 }
 
+export async function seedFaqsAction() {
+  const supabase = await guarded();
+  const { faqs } = await import("@/lib/data/faqs");
+
+  const rows = faqs.map((f) => ({
+    question: f.question,
+    question_ar: f.question_ar ?? null,
+    answer: f.answer,
+    answer_ar: f.answer_ar ?? null,
+    category: f.category ?? null,
+    category_ar: f.category_ar ?? null,
+    order_index: f.orderIndex,
+    published: f.published,
+  }));
+
+  const { error } = await supabase.from("faqs").insert(rows);
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/faq");
+  revalidatePath("/");
+  revalidatePath("/admin/faqs");
+}
+
 // -------- Site settings --------
 
 export async function saveSiteSettings(formData: FormData) {
