@@ -1,7 +1,7 @@
 export const site = {
   name: "Helpers Technologies",
   shortName: "Helpers Tech",
-  tagline: "Build Digital Products That Actually Sell.",
+  tagline: "We build solutions that grow your business.",
   description:
     "Helpers Technologies bridges the gap between complex code and business growth — delivering high-ROI digital solutions for ambitious brands in Egypt and beyond.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://helpers-tech.com",

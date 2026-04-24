@@ -37,8 +37,8 @@ const en = {
 
   hero: {
     eyebrow: "Helpers Technologies · Giza, Egypt",
-    titleA: "Build digital products",
-    titleB: "that actually sell.",
+    titleA: "We build solutions that",
+    titleB: "grow your business",
     description:
       "We combine world-class design, robust engineering, and AI automation to help ambitious brands in Egypt and beyond grow revenue — not just traffic.",
     ctaPrimary: "Start a Project",
@@ -352,7 +352,7 @@ const en = {
 
   footer: {
     copyright: "© {year} Helpers Technologies. All rights reserved.",
-    tagline: "Building digital products that actually sell.",
+    tagline: "We build solutions that grow your business.",
     explore: "Explore",
     servicesTitle: "Services",
     legalTitle: "Legal",
@@ -446,7 +446,7 @@ const en = {
 
   meta: {
     home: {
-      title: "Helpers Technologies — Build Digital Products That Actually Sell",
+      title: "Helpers Technologies — We Build Solutions That Grow Your Business",
       description:
         "Helpers Technologies is a Giza-based digital agency combining world-class design, robust engineering, and AI automation to grow revenue for ambitious brands.",
     },
