@@ -1,4 +1,5 @@
-import { Save } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
+import { SaveSettingsButton } from "@/components/admin/save-settings-button";
 import { getSupabaseServer } from "@/lib/supabase/server";
 import { saveSiteSettings } from "../../actions";
 
@@ -14,7 +15,12 @@ const FIELDS: { key: string; label: string; placeholder?: string }[] = [
   { key: "facebook_url", label: "Facebook URL" },
 ];
 
-export default async function SiteSettingsPage() {
+export default async function SiteSettingsPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ saved?: string }>;
+}) {
+  const saved = (await searchParams)?.saved === "1";
   const supabase = await getSupabaseServer();
   const { data = [] } = supabase
     ? await supabase.from("site_settings").select("key, value")
@@ -32,6 +38,13 @@ export default async function SiteSettingsPage() {
       </p>
 
       <form action={saveSiteSettings} className="mt-8 space-y-5">
+        {saved ? (
+          <div className="flex items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">
+            <CheckCircle2 className="h-4 w-4 text-emerald-300" />
+            Settings saved.
+          </div>
+        ) : null}
+
         <div className="grid gap-4 md:grid-cols-2">
           {FIELDS.map((f) => (
             <div key={f.key}>
@@ -50,10 +63,7 @@ export default async function SiteSettingsPage() {
         </div>
 
         <div className="flex justify-end">
-          <button type="submit" className="btn-primary">
-            <Save className="h-4 w-4" />
-            Save settings
-          </button>
+          <SaveSettingsButton />
         </div>
       </form>
     </div>

@@ -2,14 +2,19 @@
 
 import { MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
-import { site } from "@/lib/site";
 import { getDict, type Locale } from "@/lib/i18n";
 
-export function WhatsAppButton({ locale }: { locale: Locale }) {
+export function WhatsAppButton({
+  locale,
+  href,
+}: {
+  locale: Locale;
+  href: string;
+}) {
   const t = getDict(locale);
   return (
     <motion.a
-      href={site.whatsappLink}
+      href={href}
       target="_blank"
       rel="noreferrer"
       aria-label={t.a11y.whatsapp}

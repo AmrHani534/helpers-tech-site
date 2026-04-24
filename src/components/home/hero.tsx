@@ -4,10 +4,20 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, PlayCircle, Sparkles } from "lucide-react";
 import { getDict, type Locale } from "@/lib/i18n";
+import { setting, type SiteSettings } from "@/lib/site-settings";
 
-export function Hero({ locale }: { locale: Locale }) {
+export function Hero({
+  locale,
+  settings,
+}: {
+  locale: Locale;
+  settings?: SiteSettings;
+}) {
   const t = getDict(locale);
   const isAr = locale === "ar";
+  const eyebrow = setting(settings, "hero_eyebrow", t.hero.eyebrow);
+  const title = setting(settings, "hero_title", "");
+  const description = setting(settings, "hero_subtitle", t.hero.description);
 
   return (
     <section className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28">
@@ -27,18 +37,24 @@ export function Hero({ locale }: { locale: Locale }) {
         >
           <div className="chip mb-6">
             <Sparkles className="h-3.5 w-3.5 text-brand-300" />
-            <span>{t.hero.eyebrow}</span>
+            <span>{eyebrow}</span>
           </div>
 
           <h1 className="heading-xl text-white">
-            <span className={isAr ? "inline" : "block"}>{t.hero.titleA}</span>
-            <span className={`text-gradient ${isAr ? "inline mr-3" : "block"}`}>
-              {t.hero.titleB}
-            </span>
+            {title ? (
+              <span>{title}</span>
+            ) : (
+              <>
+                <span className={isAr ? "inline" : "block"}>{t.hero.titleA}</span>
+                <span className={`text-gradient ${isAr ? "inline mr-3" : "block"}`}>
+                  {t.hero.titleB}
+                </span>
+              </>
+            )}
           </h1>
 
           <p className="mt-6 max-w-2xl text-base md:text-lg leading-relaxed text-slate-300">
-            {t.hero.description}
+            {description}
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-3">

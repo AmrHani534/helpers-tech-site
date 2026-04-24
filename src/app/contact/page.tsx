@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/site/page-hero";
 import { ContactForm } from "@/components/contact/contact-form";
-import { site } from "@/lib/site";
 import { getLocale } from "@/lib/locale";
 import { getDict } from "@/lib/i18n";
+import { getSiteSettings } from "@/lib/repo";
+import { resolveContactSettings } from "@/lib/site-settings";
 import { Mail, MapPin, MessageCircle, Linkedin, Facebook } from "lucide-react";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -18,8 +19,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ContactPage() {
-  const locale = await getLocale();
+  const [locale, settings] = await Promise.all([getLocale(), getSiteSettings()]);
   const t = getDict(locale);
+  const contact = resolveContactSettings(settings);
 
   return (
     <>
@@ -51,10 +53,10 @@ export default async function ContactPage() {
                       {t.contact.emailLabel}
                     </div>
                     <a
-                      href={`mailto:${site.email}`}
+                      href={`mailto:${contact.email}`}
                       className="font-medium text-white hover:text-brand-300"
                     >
-                      {site.email}
+                      {contact.email}
                     </a>
                   </div>
                 </li>
@@ -67,12 +69,12 @@ export default async function ContactPage() {
                       {t.contact.whatsappLabel}
                     </div>
                     <a
-                      href={site.whatsappLink}
+                      href={contact.whatsappLink}
                       target="_blank"
                       rel="noreferrer"
                       className="font-medium text-white hover:text-emerald-400"
                     >
-                      {site.phone}
+                      {contact.phone}
                     </a>
                   </div>
                 </li>
@@ -84,14 +86,14 @@ export default async function ContactPage() {
                     <div className="text-xs uppercase tracking-wider text-slate-500">
                       {t.contact.locationLabel}
                     </div>
-                    <div className="font-medium text-white">{t.contact.location}</div>
+                    <div className="font-medium text-white">{contact.location}</div>
                   </div>
                 </li>
               </ul>
 
               <div className="mt-6 flex items-center gap-2 border-t border-white/5 pt-5">
                 <a
-                  href={site.social.linkedin}
+                  href={contact.linkedinUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 hover:text-white"
@@ -100,7 +102,7 @@ export default async function ContactPage() {
                   <Linkedin className="h-4 w-4" />
                 </a>
                 <a
-                  href={site.social.facebook}
+                  href={contact.facebookUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 hover:text-white"
@@ -117,7 +119,7 @@ export default async function ContactPage() {
               </h3>
               <p className="mt-2 text-sm text-slate-300">{t.contact.fastestBody}</p>
               <a
-                href={site.whatsappLink}
+                href={contact.whatsappLink}
                 target="_blank"
                 rel="noreferrer"
                 className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white hover:brightness-110"

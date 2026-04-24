@@ -237,7 +237,9 @@ export async function saveSiteSettings(formData: FormData) {
   const { error } = await supabase.from("site_settings").upsert(rows, { onConflict: "key" });
   if (error) throw new Error(error.message);
   revalidatePath("/");
+  revalidatePath("/contact");
   revalidatePath("/admin/site-settings");
+  redirect("/admin/site-settings?saved=1");
 }
 
 // -------- Messages --------

@@ -5,6 +5,8 @@ import "./globals.css";
 import { site } from "@/lib/site";
 import { getLocale, isRtl } from "@/lib/locale";
 import { getDict } from "@/lib/i18n";
+import { getSiteSettings } from "@/lib/repo";
+import { resolveContactSettings } from "@/lib/site-settings";
 import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import { WhatsAppButton } from "@/components/site/whatsapp-button";
@@ -86,6 +88,8 @@ export default async function RootLayout({
   const rtl = isRtl(locale);
   const t = getDict(locale);
   const hasChatKey = Boolean(process.env.GOOGLE_GENERATIVE_AI_API_KEY);
+  const settings = await getSiteSettings();
+  const contactSettings = resolveContactSettings(settings);
 
   // Admin routes use their own clean chrome — suppress the public navbar,
   // footer, WhatsApp, and chat widget. The pathname is forwarded by
@@ -121,8 +125,10 @@ export default async function RootLayout({
         <main id="main" className="flex-1">
           {children}
         </main>
-        {!isAdmin ? <Footer locale={locale} /> : null}
-        {!isAdmin ? <WhatsAppButton locale={locale} /> : null}
+        {!isAdmin ? <Footer locale={locale} settings={settings} /> : null}
+        {!isAdmin ? (
+          <WhatsAppButton locale={locale} href={contactSettings.whatsappLink} />
+        ) : null}
         {!isAdmin && hasChatKey ? <ChatWidget locale={locale} /> : null}
         <script
           type="application/ld+json"

@@ -9,16 +9,17 @@ import { TeamPreview } from "@/components/home/team-preview";
 import { FaqPreview } from "@/components/home/faq-preview";
 import { FinalCta } from "@/components/home/final-cta";
 import { getLocale } from "@/lib/locale";
+import { getSiteSettings } from "@/lib/repo";
 
 export const metadata = {
   alternates: { canonical: "/" },
 };
 
 export default async function HomePage() {
-  const locale = await getLocale();
+  const [locale, settings] = await Promise.all([getLocale(), getSiteSettings()]);
   return (
     <>
-      <Hero locale={locale} />
+      <Hero locale={locale} settings={settings} />
       <LogoMarquee locale={locale} />
       <ServicesOverview locale={locale} />
       <Differentiators locale={locale} />

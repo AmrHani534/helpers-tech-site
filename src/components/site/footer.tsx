@@ -1,17 +1,27 @@
 import Link from "next/link";
 import { Logo } from "./logo";
-import { site } from "@/lib/site";
 import { MapPin, Mail, Phone, Linkedin, Facebook } from "lucide-react";
 import { formatTemplate, getDict, type Locale } from "@/lib/i18n";
+import {
+  resolveContactSettings,
+  type SiteSettings,
+} from "@/lib/site-settings";
 
 // Computed once at module load so server render and the client bundle both
 // use the same value — avoids a rare hydration mismatch at year-boundary
 // midnights when server and client disagree on getFullYear().
 const FOOTER_YEAR = new Date().getFullYear();
 
-export function Footer({ locale }: { locale: Locale }) {
+export function Footer({
+  locale,
+  settings,
+}: {
+  locale: Locale;
+  settings?: SiteSettings;
+}) {
   const t = getDict(locale);
   const year = FOOTER_YEAR;
+  const contact = resolveContactSettings(settings);
 
   const navItems = [
     { href: "/", label: t.nav.home },
@@ -37,26 +47,26 @@ export function Footer({ locale }: { locale: Locale }) {
             <p className="max-w-sm text-sm text-slate-400">{t.footer.tagline}</p>
             <div className="space-y-2 text-sm text-slate-300">
               <a
-                href={`mailto:${site.email}`}
+                href={`mailto:${contact.email}`}
                 className="inline-flex items-center gap-2 hover:text-white"
               >
-                <Mail className="h-4 w-4 text-brand-300" /> {site.email}
+                <Mail className="h-4 w-4 text-brand-300" /> {contact.email}
               </a>
               <a
-                href={site.whatsappLink}
+                href={contact.whatsappLink}
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-2 hover:text-white"
               >
-                <Phone className="h-4 w-4 text-brand-300" /> {site.phone}
+                <Phone className="h-4 w-4 text-brand-300" /> {contact.phone}
               </a>
               <div className="flex items-center gap-2 text-slate-400">
-                <MapPin className="h-4 w-4 text-brand-300" /> {t.contact.location}
+                <MapPin className="h-4 w-4 text-brand-300" /> {contact.location}
               </div>
             </div>
             <div className="flex items-center gap-2 pt-2">
               <a
-                href={site.social.linkedin}
+                href={contact.linkedinUrl}
                 target="_blank"
                 rel="noreferrer"
                 aria-label={t.a11y.linkedin}
@@ -65,7 +75,7 @@ export function Footer({ locale }: { locale: Locale }) {
                 <Linkedin className="h-4 w-4" />
               </a>
               <a
-                href={site.social.facebook}
+                href={contact.facebookUrl}
                 target="_blank"
                 rel="noreferrer"
                 aria-label={t.a11y.facebook}
