@@ -20,6 +20,10 @@ const FIELDS: { key: string; label: string; placeholder?: string }[] = [
 ];
 
 export default async function SiteSettingsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ saved?: string; error?: string }>;
+}) {
   const params = await searchParams;
   const saved = params?.saved === "1";
   const error = params?.error;
