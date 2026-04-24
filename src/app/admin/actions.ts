@@ -251,19 +251,28 @@ export async function seedFaqsAction() {
 // -------- Site settings --------
 
 export async function saveSiteSettings(formData: FormData) {
-  const supabase = await guarded();
-  const entries = Array.from(formData.entries()).filter(([k]) => k.startsWith("s:"));
-  const rows = entries.map(([k, v]) => ({
-    key: k.slice(2),
-    value: typeof v === "string" ? v : "",
-  }));
-  if (rows.length === 0) return;
-  const { error } = await supabase.from("site_settings").upsert(rows, { onConflict: "key" });
-  if (error) throw new Error(error.message);
-  revalidatePath("/");
-  revalidatePath("/contact");
-  revalidatePath("/admin/site-settings");
-  redirect("/admin/site-settings?saved=1");
+  try {
+    const supabase = await guarded();
+    const entries = Array.from(formData.entries()).filter(([k]) => k.startsWith("s:"));
+    const rows = entries.map(([k, v]) => ({
+      key: k.slice(2),
+      value: typeof v === "string" ? v : "",
+    }));
+    if (rows.length === 0) return;
+    const { error } = await supabase.from("site_settings").upsert(rows, {
+      onConflict: "key",
+    });
+    if (error) throw new Error(error.message);
+    revalidatePath("/");
+    revalidatePath("/contact");
+    revalidatePath("/admin/site-settings");
+    redirect("/admin/site-settings?saved=1");
+  } catch (e) {
+    if (e instanceof Error && e.message === "NEXT_REDIRECT") throw e;
+    const msg = e instanceof Error ? e.message : "Unknown error";
+    console.error("saveSiteSettings error:", msg);
+    redirect(`/admin/site-settings?error=${encodeURIComponent(msg)}`);
+  }
 }
 
 // -------- Messages --------

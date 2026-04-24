@@ -1,6 +1,7 @@
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, AlertTriangle } from "lucide-react";
 import { SaveSettingsButton } from "@/components/admin/save-settings-button";
 import { getSupabaseServer } from "@/lib/supabase/server";
+import { isSupabaseAdminConfigured } from "@/lib/supabase/config";
 import { saveSiteSettings } from "../../actions";
 
 const FIELDS: { key: string; label: string; placeholder?: string }[] = [
@@ -19,11 +20,11 @@ const FIELDS: { key: string; label: string; placeholder?: string }[] = [
 ];
 
 export default async function SiteSettingsPage({
-  searchParams,
-}: {
-  searchParams?: Promise<{ saved?: string }>;
-}) {
-  const saved = (await searchParams)?.saved === "1";
+  const params = await searchParams;
+  const saved = params?.saved === "1";
+  const error = params?.error;
+  const adminConfigured = isSupabaseAdminConfigured();
+
   const supabase = await getSupabaseServer();
   const { data = [] } = supabase
     ? await supabase.from("site_settings").select("key, value")
@@ -47,6 +48,26 @@ export default async function SiteSettingsPage({
             Settings saved.
           </div>
         ) : null}
+
+        {error ? (
+          <div className="flex items-center gap-2 rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-100">
+            <AlertTriangle className="h-4 w-4 text-rose-300" />
+            Error: {error}
+          </div>
+        ) : null}
+
+        {!adminConfigured && (
+          <div className="flex items-start gap-3 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-300" />
+            <div>
+              <p className="font-semibold text-amber-300">Admin write access is not configured</p>
+              <p className="mt-1 text-xs text-amber-200/70">
+                The <code className="text-amber-200">SUPABASE_SERVICE_ROLE_KEY</code> environment variable is missing on the server. 
+                You will not be able to save changes until this is added.
+              </p>
+            </div>
+          </div>
+        )}
 
         <div className="grid gap-4 md:grid-cols-2">
           {FIELDS.map((f) => (
