@@ -11,7 +11,7 @@ import {
   LogOut,
   ShieldAlert,
 } from "lucide-react";
-import { getCurrentUser, isAdmin, getAdminEmails } from "@/lib/auth";
+import { getCurrentUser, isAdmin } from "@/lib/auth";
 import { Logo } from "@/components/site/logo";
 
 const nav = [

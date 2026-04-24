@@ -10,7 +10,11 @@ import { slugify } from "@/lib/utils";
 async function guarded(): Promise<SupabaseClient> {
   if (!(await isAdmin())) throw new Error("Not authorized");
   const supabase = await getSupabaseAdmin();
-  if (!supabase) throw new Error("Supabase service role is not configured");
+  if (!supabase) {
+    throw new Error(
+      "Admin write access is not configured. Add SUPABASE_SERVICE_ROLE_KEY to the server environment.",
+    );
+  }
   return supabase;
 }
 

@@ -55,6 +55,10 @@ export async function getSupabaseAdmin() {
   if (!serviceRoleKey) return null;
   const { createClient } = await import("@supabase/supabase-js");
   return createClient(url!, serviceRoleKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+      detectSessionInUrl: false,
+    },
   });
 }

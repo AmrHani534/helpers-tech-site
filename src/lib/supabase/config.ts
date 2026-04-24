@@ -9,3 +9,8 @@ export function isSupabaseConfigured(): boolean {
   const { url, anonKey } = getSupabaseEnv();
   return Boolean(url && anonKey);
 }
+
+export function isSupabaseAdminConfigured(): boolean {
+  const { serviceRoleKey } = getSupabaseEnv();
+  return isSupabaseConfigured() && Boolean(serviceRoleKey);
+}

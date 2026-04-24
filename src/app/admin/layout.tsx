@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { ShieldAlert } from "lucide-react";
-import { isSupabaseConfigured } from "@/lib/supabase/config";
+import {
+  isSupabaseAdminConfigured,
+  isSupabaseConfigured,
+} from "@/lib/supabase/config";
 
 /**
  * Outermost /admin layout.
@@ -19,25 +22,48 @@ export default function AdminOuterLayout({
 }) {
   if (!isSupabaseConfigured()) {
     return (
-      <div className="container-app pt-40 pb-24">
-        <div className="surface mx-auto max-w-xl p-10 text-center">
-          <div className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-amber-500/15 text-amber-300">
-            <ShieldAlert className="h-6 w-6" />
-          </div>
-          <h1 className="mt-5 heading-md text-white">Admin is not configured</h1>
-          <p className="mt-3 text-sm text-slate-400">
-            Set <code className="text-amber-300">NEXT_PUBLIC_SUPABASE_URL</code>,{" "}
-            <code className="text-amber-300">NEXT_PUBLIC_SUPABASE_ANON_KEY</code>,
-            and <code className="text-amber-300">SUPABASE_SERVICE_ROLE_KEY</code> in
-            your environment, run the SQL migration, then come back here to log in.
-          </p>
-          <Link href="/" className="btn-secondary mt-6">
-            Back to site
-          </Link>
-        </div>
-      </div>
+      <AdminConfigNotice>
+        Set <code className="text-amber-300">NEXT_PUBLIC_SUPABASE_URL</code>,{" "}
+        <code className="text-amber-300">NEXT_PUBLIC_SUPABASE_ANON_KEY</code>,
+        and <code className="text-amber-300">SUPABASE_SERVICE_ROLE_KEY</code> in
+        your environment, run the SQL migration, then come back here to log in.
+      </AdminConfigNotice>
+    );
+  }
+
+  if (!isSupabaseAdminConfigured()) {
+    return (
+      <AdminConfigNotice title="Admin writes are not configured">
+        The admin can sign in with the public Supabase keys, but saving changes
+        needs <code className="text-amber-300">SUPABASE_SERVICE_ROLE_KEY</code>{" "}
+        on the server. Add the service role or secret key in your hosting
+        environment, then restart/redeploy the app.
+      </AdminConfigNotice>
     );
   }
 
   return <>{children}</>;
+}
+
+function AdminConfigNotice({
+  children,
+  title = "Admin is not configured",
+}: {
+  children: React.ReactNode;
+  title?: string;
+}) {
+  return (
+    <div className="container-app pt-40 pb-24">
+      <div className="surface mx-auto max-w-xl p-10 text-center">
+        <div className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-amber-500/15 text-amber-300">
+          <ShieldAlert className="h-6 w-6" />
+        </div>
+        <h1 className="mt-5 heading-md text-white">{title}</h1>
+        <p className="mt-3 text-sm text-slate-400">{children}</p>
+        <Link href="/" className="btn-secondary mt-6">
+          Back to site
+        </Link>
+      </div>
+    </div>
+  );
 }
